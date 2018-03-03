@@ -17,9 +17,9 @@ Key features:
 
 - Add the functionality to support offline posting and keep track of retries.
 
-#Research
+# Research
 
-One question that I've trying to answer sice I started diggin in all this "Kotlin-MVVM" new wave was "It's really that helpful?". I mean, most of the projects that I've seen so far have a LOT of boilerplate code, It's like if you'd spent more time wiring all the components toghether than actually implementing the feature.
+One question that I've trying to answer since I started diggin in all this "Kotlin-MVVM" new wave was "It's really that helpful?". I mean, most of the projects that I've seen so far have a LOT of boilerplate code, It's like if you'd spent more time wiring all the components toghether than actually implementing the feature.
 
 So let's check the classic MVP approach and see what we can improve over that with MVVM
 
@@ -38,6 +38,8 @@ In the MVVM apporach the View communicates with the ViewModel, sending commands 
 - In MVVM the View should communicate only with the ViewModel, the ViewModel should internally redirect the request to the Presenter which would use the Model to load the ViewModel variables.
 
 - Don't smash toghether the Presenter and the ViewModel.
+
+- One issue that I always had when working with MVP is "Where to store the model variables?". What I've always done was having those kind of variables (`List<User>`, `TeamDetail`, `HouseInfo`) in the Presenter. When initializing the Presenter and binding the View to the Presenter I used to pass along the Fragment's arguments and the Fragment's saveInstanceState, and from those two Bundles I'd take the info that I needed, but I needed to do a little bit of wiring in order to do that. Maybe with the ViewModels I can get rid of that issue.
 
 
 
