@@ -41,7 +41,11 @@ In the MVVM apporach the View communicates with the ViewModel, sending commands 
 
 - One issue that I always had when working with MVP is "Where to store the model variables?". What I've always done was having those kind of variables (`List<User>`, `TeamDetail`, `HouseInfo`) in the Presenter. When initializing the Presenter and binding the View to the Presenter I used to pass along the Fragment's arguments and the Fragment's saveInstanceState, and from those two Bundles I'd take the info that I needed, but I needed to do a little bit of wiring in order to do that. Maybe with the ViewModels I can get rid of that issue.
 
+# Test project
 
+I've seen that all the examples using MVVM are just simple TODO list Apps or they show data in a TextView/ImageView. I think that these kind of examples are not fit to measure if an MVVM approach is good enough to use in a project. 
+
+So the sample App that I'm gonna build is going to be an App that allows you to search for food recipes, we are going to have three screens. The main recipe list, a detail view that shows the neccesary ingredients, and a filter view that allows us to search and filter the criteria used to find recipes. These screens should inherit and reuse each other behaviour, so we can see if the MVVM apporach is truly the way to go.
 
 
 
