@@ -47,6 +47,11 @@ I've seen that all the examples using MVVM are just simple TODO list Apps or the
 
 So the sample App that I'm gonna build is going to be an App that allows you to search for food recipes, we are going to have three screens. The main recipe list, a detail view that shows the neccesary ingredients, and a filter view that allows us to search and filter the criteria used to find recipes. These screens should inherit and reuse each other behaviour, so we can see if the MVVM apporach is truly the way to go.
 
+# Captain's log
+
+???: Okay I finished the DI, the ViewModelFactory is now hooked with Dagger so we can provide the different ViewModels from there, when creating a new screen we should only need three methods hooked in the #onCreate(). The call to inject the dependecies (which injects the ViewModelFactory) and the ViewModelFactory call to initialize the ViewModel.
+
+4/1/2018: Of the 30000 ways to implement a RecyclerView's Adapter with MVVM I think that I figured out the right one. Usually the Adapter implementation in MVVM is splitted in two different ways of doing it. The first one is passing the ViewModel instance of the screen through the Adapter's constructur and using the Collection that we have stored there. This is done this way so if we remove an item from the adapter that change is reflected in the screen's ViewModel Collection as well. But I don't think that tying the Adapter to a specific ViewModel is a good idea. So I'm going with the second approach that is having a ViewModel for the Adapter's items. Is pretty straightforward and it separates the Adapter from the specific screen. 
 
 
 
