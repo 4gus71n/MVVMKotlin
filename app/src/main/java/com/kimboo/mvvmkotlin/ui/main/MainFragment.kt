@@ -59,7 +59,7 @@ class MainFragment: Fragment(), RecipesAdapter.Callback {
         fragmentMainRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         fragmentMainRecyclerView.adapter = RecipesAdapter(this)
 
-        mainViewModel.getRecipes()
+        mainViewModel.fetchRecipes()
     }
     //endregion
 
