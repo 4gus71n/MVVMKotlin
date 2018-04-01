@@ -1,9 +1,12 @@
 package com.kimboo.androidjobsnewsletter.di.module
 
 import android.content.Context
+import android.util.Log
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.moczul.ok2curl.CurlInterceptor
+import com.moczul.ok2curl.logger.Loggable
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
@@ -57,12 +60,25 @@ class NetworkModule() {
     }
 
     @Provides
+    @Named("curlInterceptor")
+    protected fun provideCurlInterceptor(): Interceptor {
+        return CurlInterceptor(object: Loggable {
+            override fun log(message: String?) {
+                Log.v("Curl", message);
+            }
+        })
+    }
+
+    @Provides
     protected fun provideOkHttpClient(cache: okhttp3.Cache,
+                                      @Named("curlInterceptor") curlInterceptor: Interceptor,
                                       @Named("cacheInterceptor") cacheInterceptor: Interceptor): OkHttpClient {
         val builder = OkHttpClient.Builder()
         if (ENABLE_OKHTTP_CACHE) {
             builder.cache(cache)
         }
+
+        builder.addInterceptor(curlInterceptor)
 
         try {
             setUnsafeSslCertificates(builder)
@@ -105,7 +121,7 @@ class NetworkModule() {
     @Provides
     protected fun provideRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit {
         return Retrofit.Builder()
-                .baseUrl("https://androidjobs.io")  //We need a default url
+                .baseUrl("http://private-8a944-recipes20.apiary-mock.com")  //We need a default url
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okHttpClient)

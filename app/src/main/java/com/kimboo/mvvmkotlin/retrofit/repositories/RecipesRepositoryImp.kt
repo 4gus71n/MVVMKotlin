@@ -16,10 +16,16 @@ import io.reactivex.schedulers.Schedulers
 class RecipesRepositoryImp(val recipesApi: RecipesApi): RecipesRepository {
 
     override fun getRecipeList(): Observable<DataSource<List<Recipe>>> {
-        return recipesApi.getRecipes()
+        return recipesApi.getRecipe()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .transformEntity(RecipesMapper()::fromServerToModel)
     }
 
+    override fun getRecipe(recipeId: String): Observable<DataSource<Recipe>> {
+        return recipesApi.getRecipe(recipeId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .transformEntity(RecipesMapper()::fromServerToModel)
+    }
 }

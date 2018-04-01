@@ -88,6 +88,10 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.1.0'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     //endregion
+
+    //region Network tools dependencies
+    compile 'com.github.mrmike:Ok2Curl:master-SNAPSHOT'
+    //endregion
 }
 repositories {
     mavenCentral()

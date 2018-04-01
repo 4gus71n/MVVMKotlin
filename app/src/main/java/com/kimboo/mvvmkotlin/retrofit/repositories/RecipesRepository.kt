@@ -12,4 +12,6 @@ interface RecipesRepository {
 
     fun getRecipeList(): Observable<DataSource<List<Recipe>>>
 
+    fun getRecipe(recipeId: String): Observable<DataSource<Recipe>>
+
 }

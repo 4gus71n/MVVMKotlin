@@ -1,11 +1,14 @@
 package com.kimboo.mvvmkotlin.ui.main
 
 import android.arch.lifecycle.ViewModel
+import android.databinding.BindingAdapter
 import android.databinding.ObservableField
+import android.support.v7.widget.RecyclerView
 import com.kimboo.mvvmkotlin.extensions.DataSourceSubscriber
 import com.kimboo.mvvmkotlin.extensions.subscribe
 import com.kimboo.mvvmkotlin.model.Recipe
 import com.kimboo.mvvmkotlin.retrofit.repositories.RecipesRepository
+import com.kimboo.mvvmkotlin.ui.main.adapter.RecipesAdapter
 import javax.inject.Inject
 
 /**
@@ -30,6 +33,16 @@ class MainViewModel @Inject constructor (val recipesRepository: RecipesRepositor
                         isLoading.set(false)
                     }
                 })
+    }
+
+    companion object {
+        @JvmStatic @BindingAdapter(value = "bind:data", requireAll = true)
+        fun bindAdapter(recyclerView: RecyclerView, data: List<Recipe>?) {
+            if (data != null) {
+                var adapter = recyclerView.adapter as RecipesAdapter
+                adapter.recipes = data
+            }
+        }
     }
 
 }

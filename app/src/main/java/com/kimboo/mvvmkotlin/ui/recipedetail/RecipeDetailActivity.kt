@@ -1,14 +1,14 @@
-package com.kimboo.mvvmkotlin.ui.main
+package com.kimboo.mvvmkotlin.ui.recipedetail
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-
 import com.kimboo.mvvmkotlin.R
 
 /**
- * Just acting as a fragment holder of the {@link MainFragment}
+ * Created by Agustin Tomas Larghi on 31/3/2018.
+ * Email: agustin.tomas.larghi@gmail.com
  */
-class MainActivity : AppCompatActivity() {
+class RecipeDetailActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, MainFragment.newInstance(), MainFragment.TAG)
+                    .replace(R.id.fragment_container, RecipeDetailFragment.newInstance(), RecipeDetailFragment.TAG)
                     .commit()
         }
     }
