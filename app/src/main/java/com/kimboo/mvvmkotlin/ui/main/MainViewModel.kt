@@ -9,7 +9,6 @@ import android.view.View
 import com.kimboo.mvvmkotlin.extensions.DataSourceSubscriber
 import com.kimboo.mvvmkotlin.extensions.subscribe
 import com.kimboo.mvvmkotlin.model.Recipe
-import com.kimboo.mvvmkotlin.retrofit.repositories.RecipesRepository
 import com.kimboo.mvvmkotlin.ui.main.adapter.RecipesAdapter
 import javax.inject.Inject
 
@@ -18,7 +17,7 @@ import javax.inject.Inject
  * Email: agustin.tomas.larghi@gmail.com
  */
 //If you need a context aware ViewModel you should use AndroidViewModel
-class MainViewModel @Inject constructor (val recipesRepository: RecipesRepository): ViewModel() {
+class MainViewModel @Inject constructor (val mainPresenter: MainPresenter): ViewModel() {
 
     //Notice that the variables are read-only, but not their properties
     val recipes = ObservableField<List<Recipe>>()
@@ -31,19 +30,27 @@ class MainViewModel @Inject constructor (val recipesRepository: RecipesRepositor
     fun fetchRecipes() {
         isLoading.set(true)
 
-        recipesRepository.getRecipeList()
+        mainPresenter.getRecipes()
                 .subscribe(object: DataSourceSubscriber<List<Recipe>>() {
                     override fun onResultNext(model: List<Recipe>) {
-                        isLoading.set(false)
-                        recipes.set(model)
+                        onRecipesFetched(model)
                     }
 
                     override fun onError(t: Throwable?) {
-                        isLoading.set(false)
-                        snackBarMessage.set("Ups error!");
-                        snackBarMessage.notifyChange()
+                        onErrorFetchingRecipes()
                     }
-                })
+                });
+    }
+
+    private fun onRecipesFetched(model: List<Recipe>) {
+        isLoading.set(false)
+        recipes.set(model)
+    }
+
+    private fun onErrorFetchingRecipes() {
+        isLoading.set(false)
+        snackBarMessage.set("Ups error!");
+        snackBarMessage.notifyChange()
     }
 
     companion object {

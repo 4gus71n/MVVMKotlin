@@ -2,10 +2,7 @@ package com.kimboo.mvvmkotlin.di.components
 
 import android.content.Context
 import com.google.gson.Gson
-import com.kimboo.androidjobsnewsletter.di.module.AppModule
-import com.kimboo.androidjobsnewsletter.di.module.NetworkModule
-import com.kimboo.androidjobsnewsletter.di.module.RepositoryModule
-import com.kimboo.androidjobsnewsletter.di.module.RetrofitServiceModule
+import com.kimboo.androidjobsnewsletter.di.module.*
 import com.kimboo.mvvmkotlin.MyApp
 import com.kimboo.mvvmkotlin.di.modules.ViewModelModule
 import com.kimboo.mvvmkotlin.retrofit.api.RecipesApi
@@ -14,7 +11,7 @@ import dagger.Component
 import okhttp3.Cache
 
 @Component(modules = arrayOf(RetrofitServiceModule::class, RepositoryModule::class, AppModule::class,
-        NetworkModule::class, ViewModelModule::class))
+        NetworkModule::class, ViewModelModule::class, PresenterModule::class))
 interface AppComponent {
 
     val gson: Gson
