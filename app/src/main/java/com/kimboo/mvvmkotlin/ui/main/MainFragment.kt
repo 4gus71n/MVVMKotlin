@@ -11,7 +11,9 @@ import com.kimboo.mvvmkotlin.MyApp
 import com.kimboo.mvvmkotlin.R
 import com.kimboo.mvvmkotlin.databinding.FragmentMainBinding
 import com.kimboo.mvvmkotlin.di.modules.MyViewModelFactory
+import com.kimboo.mvvmkotlin.model.Recipe
 import com.kimboo.mvvmkotlin.ui.main.adapter.RecipesAdapter
+import com.kimboo.mvvmkotlin.ui.recipedetail.RecipeDetailActivity
 import kotlinx.android.synthetic.main.fragment_main.*
 import javax.inject.Inject
 
@@ -19,7 +21,7 @@ import javax.inject.Inject
  * Created by Agustin Tomas Larghi on 3/3/2018.
  * Email: agustin.tomas.larghi@gmail.com
  */
-class MainFragment: Fragment() {
+class MainFragment: Fragment(), RecipesAdapter.Callback {
 
     //region Constant variables declaration
     companion object {
@@ -55,9 +57,15 @@ class MainFragment: Fragment() {
         fragmentMainBinding.mainViewModel = mainViewModel
 
         fragmentMainRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        fragmentMainRecyclerView.adapter = RecipesAdapter()
+        fragmentMainRecyclerView.adapter = RecipesAdapter(this)
 
         mainViewModel.getRecipes()
+    }
+    //endregion
+
+    //region RecipesAdapter.Callback implementation
+    override fun onWholeLayoutClicked(recipe: Recipe) {
+        startActivity(RecipeDetailActivity.getStartIntent(context, recipe))
     }
     //endregion
 }
