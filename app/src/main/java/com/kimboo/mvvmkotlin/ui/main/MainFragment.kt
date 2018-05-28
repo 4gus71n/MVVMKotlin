@@ -61,6 +61,16 @@ class MainFragment: Fragment(), RecipesAdapter.Callback {
 
         mainViewModel.fetchRecipes()
     }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        mainViewModel.onSaveInstanceState(outState);
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        mainViewModel.onViewStateRestored(savedInstanceState)
+    }
     //endregion
 
     //region RecipesAdapter.Callback implementation

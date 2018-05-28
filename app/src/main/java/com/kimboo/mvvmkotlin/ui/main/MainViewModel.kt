@@ -3,6 +3,7 @@ package com.kimboo.mvvmkotlin.ui.main
 import android.arch.lifecycle.ViewModel
 import android.databinding.BindingAdapter
 import android.databinding.ObservableField
+import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -61,12 +62,24 @@ class MainViewModel @Inject constructor (val mainPresenter: MainPresenter): View
             }
         }
 
-        @JvmStatic @BindingAdapter(value = "app:data", requireAll = true)
-        fun bindAdapter(recyclerView: RecyclerView, data: List<Recipe>?) {
-            if (data != null) {
-                var adapter = recyclerView.adapter as RecipesAdapter
-                adapter.recipes = data
-            }
+    @JvmStatic @BindingAdapter(value = "app:data", requireAll = true)
+    fun bindAdapter(recyclerView: RecyclerView, data: List<Recipe>?) {
+        if (data != null) {
+            var adapter = recyclerView.adapter as RecipesAdapter
+            adapter.recipes = data
+        }
+    }
+    }
+
+    fun onSaveInstanceState(outState: Bundle?) {
+        recipes.get()?.let {
+            outState?.putParcelableArray("col", it.toTypedArray())
+        }
+    }
+
+    fun onViewStateRestored(savedInstanceState: Bundle?) {
+        savedInstanceState?.let {
+            recipes.set(it.getParcelableArrayList("col"))
         }
     }
 

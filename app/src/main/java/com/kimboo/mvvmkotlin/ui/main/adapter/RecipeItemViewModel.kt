@@ -23,7 +23,7 @@ class RecipeItemViewModel(var callback: Callback): ViewModel() {
 
     //region Public methods declaration
     fun onWholeLayoutClicked(view : View?) {
-        callback.onWholeLayoutClicked(recipe.get())
+        callback.onWholeLayoutClicked(recipe.get()!!) //TODO Check this
     }
     //endregion
 
@@ -33,7 +33,7 @@ class RecipeItemViewModel(var callback: Callback): ViewModel() {
      * To communicate back to the {@link RecipesAdapter}
      */
     interface Callback {
-        fun onWholeLayoutClicked(recipe: Recipe);
+        fun onWholeLayoutClicked(recipe: Recipe)
     }
     //endregion
 
