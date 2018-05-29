@@ -20,6 +20,7 @@ import java.security.NoSuchAlgorithmException
 import java.security.cert.CertificateException
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
+import javax.inject.Singleton
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
@@ -36,10 +37,12 @@ class NetworkModule() {
     }
 
     @Provides
+    @Singleton
     fun provideCache(context: Context) = okhttp3.Cache(File(context.cacheDir, "http"), SIZE_OF_CACHE)
 
 
     @Provides
+    @Singleton
     fun provideGson(): Gson {
         return GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
@@ -70,6 +73,7 @@ class NetworkModule() {
     }
 
     @Provides
+    @Singleton
     protected fun provideOkHttpClient(cache: okhttp3.Cache,
                                       @Named("curlInterceptor") curlInterceptor: Interceptor,
                                       @Named("cacheInterceptor") cacheInterceptor: Interceptor): OkHttpClient {
@@ -119,6 +123,7 @@ class NetworkModule() {
     }
 
     @Provides
+    @Singleton
     protected fun provideRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit {
         return Retrofit.Builder()
                 .baseUrl("https://randomuser.me/api/")  //TODO move to the build.gradle

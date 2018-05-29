@@ -12,10 +12,11 @@ import com.kimboo.mvvmkotlin.model.UserProfile
  */
 @Database(
         entities = arrayOf(UserProfile::class),
-        version = 2,
+        version = 10,
         exportSchema = false
 )
 abstract class AppDb : RoomDatabase() {
+
     companion object {
         fun create(context: Context, useInMemory : Boolean): AppDb {
             val databaseBuilder = if(useInMemory) {
@@ -24,10 +25,12 @@ abstract class AppDb : RoomDatabase() {
                 Room.databaseBuilder(context, AppDb::class.java, "mvvm_example.db")
             }
             return databaseBuilder
+                    .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
                     .build()
         }
     }
 
     abstract fun users(): UserDao
+
 }

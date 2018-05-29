@@ -29,8 +29,7 @@ class MainViewModel @Inject constructor (val userProfileDao: UserDao, val random
     val snackBarMessage = ObservableField<String>()
 
     val userProfiles: Flowable<PagedList<UserProfile>> = RxPagedListBuilder(
-            UserProfileDataSourceFactory(userProfileDao),
-            /* page size */ 50)
+            UserProfileDataSourceFactory(userProfileDao), 50) //Is very important that the page size is the same everywhere!
             .setBoundaryCallback(UserProfileBoundaryCallback(randomUserRepository, userProfileDao))
             .buildFlowable(BackpressureStrategy.LATEST)
 

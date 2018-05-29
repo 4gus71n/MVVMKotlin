@@ -12,7 +12,7 @@ import retrofit2.Retrofit
 class RetrofitServiceModule {
 
     @Provides
-    fun provideRecipesApi(retrofit: Retrofit): RandomUserApi {
+    fun providesRandomUserApi(retrofit: Retrofit): RandomUserApi {
         return retrofit.create(RandomUserApi::class.java)
     }
 

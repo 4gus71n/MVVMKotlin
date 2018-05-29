@@ -12,10 +12,15 @@ import com.kimboo.mvvmkotlin.model.UserProfile
  */
 @Dao
 interface UserDao {
-    // The Integer type parameter tells Room to use a PositionalDataSource
-    // object, with position-based loading under the hood.
-    @Query("SELECT * FROM user_profile ORDER BY id DESC")
+    @Query("SELECT * FROM user_profile")
     fun getUserProfiles(): List<UserProfile>
+
+    /**
+     * We use this query in the {@link UserProfileDataSource} to get the data paginated from the DB
+     */
+    @Query("SELECT * FROM user_profile LIMIT :limit OFFSET :offset")
+    fun getUserProfileWithLimitAndOffset(limit: Int, offset: Int): List<UserProfile>
+
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun storeUserProfiles(userProfiles: List<UserProfile>)

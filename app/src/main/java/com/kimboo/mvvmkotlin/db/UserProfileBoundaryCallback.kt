@@ -15,23 +15,18 @@ import io.reactivex.schedulers.Schedulers
 class UserProfileBoundaryCallback(val userRepository: RandomUserRepository,
                                   val userDao: UserDao) : PagedList.BoundaryCallback<UserProfile>() {
 
-    var page = 1
 
     /**
      * Database returned 0 items. We should query the backend for more items.
      */
     @MainThread
     override fun onZeroItemsLoaded() {
-        userRepository.getUserProfiles(page, 10)
+        userRepository.getUserProfiles(0, 50)
             .subscribeOn(Schedulers.io()) //We shouldn't write in the db over the UI thread!
             .observeOn(Schedulers.io()) //We shouldn't write in the db over the UI thread!
             .subscribe(object: DataSourceSubscriber<List<UserProfile>>() {
                 override fun onResultNext(userProfiles: List<UserProfile>) {
                     userDao.storeUserProfiles(userProfiles)
-                }
-
-                override fun onError(t: Throwable?) {
-                    super.onError(t)
                 }
             })
     }
@@ -41,15 +36,12 @@ class UserProfileBoundaryCallback(val userRepository: RandomUserRepository,
      */
     @MainThread
     override fun onItemAtEndLoaded(itemAtEnd: UserProfile) {
-
-        userRepository.getUserProfiles(++page, 10)
+        userRepository.getUserProfiles(itemAtEnd.indexPageNumber + 1, 50)
+                .subscribeOn(Schedulers.io()) //We shouldn't write in the db over the UI thread!
+                .observeOn(Schedulers.io()) //We shouldn't write in the db over the UI thread!
                 .subscribe(object: DataSourceSubscriber<List<UserProfile>>() {
                     override fun onResultNext(userProfiles: List<UserProfile>) {
                         userDao.storeUserProfiles(userProfiles)
-                    }
-
-                    override fun onError(t: Throwable?) {
-                        super.onError(t)
                     }
                 })
     }

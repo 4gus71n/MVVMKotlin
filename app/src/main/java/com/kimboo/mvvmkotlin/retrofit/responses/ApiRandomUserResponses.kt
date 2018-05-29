@@ -41,7 +41,18 @@ data class ApiRandomUserPictureResponse(
 
 data class ApiRandomResponse(
     @SerializedName("results")
-    val results: List<ApiRandomUserResponse>
+    val results: List<ApiRandomUserResponse>,
+
+    @SerializedName("info")
+    val info: ApiRandomInfoResponse
+)
+
+data class ApiRandomInfoResponse(
+    @SerializedName("results")
+    val results: Int,
+
+    @SerializedName("page")
+    val page: Int
 )
 
 data class ApiRandomUserResponse(

@@ -22,7 +22,7 @@ class UsersAdapter(var callback: UsersAdapter.Callback): PagedListAdapter<UserPr
             // but ID is fixed.
             override fun areItemsTheSame(oldUserProfile: UserProfile,
                                          newUserProfile: UserProfile): Boolean =
-                    oldUserProfile.id == newUserProfile.id
+                    oldUserProfile.email.equals(newUserProfile.email)
 
             override fun areContentsTheSame(oldUserProfile: UserProfile,
                                             newUserProfile: UserProfile): Boolean =

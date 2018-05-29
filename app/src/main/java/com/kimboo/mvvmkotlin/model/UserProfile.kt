@@ -5,44 +5,42 @@ package com.kimboo.mvvmkotlin.model
  * Email: agustin.tomas.larghi@gmail.com
  */
 import android.arch.persistence.room.Entity
-import android.arch.persistence.room.Index
 import android.arch.persistence.room.PrimaryKey
 
-@Entity(tableName = "user_profile",
-        indices = [Index(value = ["id"], unique = false)])
+@Entity(tableName = "user_profile")
 class UserProfile(
+        @PrimaryKey
         val email: String,
 
-        @PrimaryKey
-        val id: String,
+        val id: String?,
 
-        val idname: String,
+        val idname: String?,
 
-        val street: String,
+        val street: String?,
 
-        val city: String,
+        val city: String?,
 
-        val state: String,
+        val state: String?,
 
-        val postcode: String,
+        val postcode: String?,
 
-        val gender: String,
+        val gender: String?,
 
-        val dob: String, //TODO Implement formatter to convert automatically to Calendar or Date
+        val dob: String?, //TODO Implement formatter to convert automatically to Calendar or Date
 
-        val registered: String, //TODO Implement formatter to convert automatically to Calendar or Date
+        val registered: String?, //TODO Implement formatter to convert automatically to Calendar or Date
 
-        val phone: String,
+        val phone: String?,
 
-        val cell: String,
+        val cell: String?,
 
-        val pictureLarge: String,
+        val pictureLarge: String?,
 
-        val pictureMedium: String,
+        val pictureMedium: String?,
 
-        val pictureThumbnail: String,
+        val pictureThumbnail: String?,
 
-        val nationality: String) {
+        val nationality: String?) {
     // to be consistent w/ changing backend order, we need to keep a data like this
-    var indexInResponse: Int = -1
+    var indexPageNumber: Int = 0
 }

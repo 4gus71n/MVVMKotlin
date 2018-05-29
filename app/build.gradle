@@ -106,6 +106,10 @@ dependencies {
     //region Network tools dependencies
     implementation 'com.github.mrmike:Ok2Curl:master-SNAPSHOT'
     //endregion
+
+    //region DB tools dependencies
+    implementation 'com.facebook.stetho:stetho:1.5.0'
+    //endregion
 }
 repositories {
     mavenCentral()

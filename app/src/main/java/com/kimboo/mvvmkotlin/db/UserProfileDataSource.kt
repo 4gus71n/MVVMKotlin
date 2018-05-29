@@ -10,11 +10,11 @@ import com.kimboo.mvvmkotlin.model.UserProfile
 class UserProfileDataSource(val userDao: UserDao): PageKeyedDataSource<Int, UserProfile>() {
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, UserProfile>) {
-        callback.onResult(userDao.getUserProfiles(), 0, 0)
+        callback.onResult(userDao.getUserProfileWithLimitAndOffset(50, 0), 0, 50)
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, UserProfile>) {
-        callback.onResult(userDao.getUserProfiles(), 0)
+        callback.onResult(userDao.getUserProfileWithLimitAndOffset(50, params.key), params.key + 50)
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, UserProfile>) {
