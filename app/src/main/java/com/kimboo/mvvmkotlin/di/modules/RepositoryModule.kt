@@ -1,8 +1,11 @@
 package com.kimboo.androidjobsnewsletter.di.module
 
-import com.kimboo.mvvmkotlin.retrofit.api.RecipesApi
-import com.kimboo.mvvmkotlin.retrofit.repositories.RecipesRepository
-import com.kimboo.mvvmkotlin.retrofit.repositories.RecipesRepositoryImp
+import android.content.Context
+import com.kimboo.mvvmkotlin.db.AppDb
+import com.kimboo.mvvmkotlin.db.UserDao
+import com.kimboo.mvvmkotlin.retrofit.api.RandomUserApi
+import com.kimboo.mvvmkotlin.retrofit.repositories.RandomUserRepository
+import com.kimboo.mvvmkotlin.retrofit.repositories.RandomUserRepositoryImp
 import dagger.Module
 import dagger.Provides
 
@@ -10,8 +13,13 @@ import dagger.Provides
 class RepositoryModule {
 
     @Provides
-    fun provideRecipesRepository(recipesApi: RecipesApi) : RecipesRepository {
-        return RecipesRepositoryImp(recipesApi)
+    fun provideRecipesRepository(randomUserApi: RandomUserApi) : RandomUserRepository {
+        return RandomUserRepositoryImp(randomUserApi)
+    }
+
+    @Provides
+    fun providesUserDao(context: Context) : UserDao {
+        return AppDb.create(context, false).users()
     }
 
 }

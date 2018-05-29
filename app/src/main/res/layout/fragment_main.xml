@@ -17,13 +17,12 @@
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/fragmentMainSwipeRefreshLayout"
             app:refreshing="@{mainViewModel.isLoading}"
-            app:onRefreshListener="@{() -> mainViewModel.fetchRecipes()}"
+            app:onRefreshListener="@{() -> mainViewModel.fetchUserProfiles()}"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/fragmentMainRecyclerView"
-                app:data="@{mainViewModel.recipes}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 

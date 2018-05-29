@@ -11,14 +11,14 @@ import com.kimboo.mvvmkotlin.model.Recipe
  * Created by Agustin Tomas Larghi on 31/3/2018.
  * Email: agustin.tomas.larghi@gmail.com
  */
-class RecipeDetailActivity: AppCompatActivity() {
+class UserDetailActivity: AppCompatActivity() {
 
     //region Constant variables declartion
     companion object {
         val ARG_RECIPE_BUNDLE = "arg_recipe_bundle"
 
         fun getStartIntent(context: Context, recipe: Recipe): Intent {
-            val intent = Intent(context, RecipeDetailActivity::class.java)
+            val intent = Intent(context, UserDetailActivity::class.java)
             intent.putExtra(ARG_RECIPE_BUNDLE, recipe)
             return intent
         }

@@ -11,9 +11,8 @@ import com.kimboo.mvvmkotlin.MyApp
 import com.kimboo.mvvmkotlin.R
 import com.kimboo.mvvmkotlin.databinding.FragmentMainBinding
 import com.kimboo.mvvmkotlin.di.modules.MyViewModelFactory
-import com.kimboo.mvvmkotlin.model.Recipe
-import com.kimboo.mvvmkotlin.ui.main.adapter.RecipesAdapter
-import com.kimboo.mvvmkotlin.ui.recipedetail.RecipeDetailActivity
+import com.kimboo.mvvmkotlin.model.UserProfile
+import com.kimboo.mvvmkotlin.ui.main.adapter.UsersAdapter
 import kotlinx.android.synthetic.main.fragment_main.*
 import javax.inject.Inject
 
@@ -21,7 +20,7 @@ import javax.inject.Inject
  * Created by Agustin Tomas Larghi on 3/3/2018.
  * Email: agustin.tomas.larghi@gmail.com
  */
-class MainFragment: Fragment(), RecipesAdapter.Callback {
+class MainFragment: Fragment(), UsersAdapter.Callback {
 
     //region Constant variables declaration
     companion object {
@@ -43,13 +42,14 @@ class MainFragment: Fragment(), RecipesAdapter.Callback {
     private lateinit var mainViewModel: MainViewModel
     //endregion
 
-    //region Fragment's lifecycle methods
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?) =
-            inflater!!.inflate(R.layout.fragment_main, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater!!.inflate(R.layout.fragment_main, container, false)
+    }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    private val usersAdapter = UsersAdapter(this)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         MyApp.viewInjector.inject(this)
 
         fragmentMainBinding = FragmentMainBinding.bind(view!!)
@@ -57,25 +57,17 @@ class MainFragment: Fragment(), RecipesAdapter.Callback {
         fragmentMainBinding.mainViewModel = mainViewModel
 
         fragmentMainRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        fragmentMainRecyclerView.adapter = RecipesAdapter(this)
+        fragmentMainRecyclerView.adapter = usersAdapter
 
-        mainViewModel.fetchRecipes()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle?) {
-        super.onSaveInstanceState(outState)
-        mainViewModel.onSaveInstanceState(outState);
-    }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-        mainViewModel.onViewStateRestored(savedInstanceState)
+        mainViewModel.userProfiles.subscribe {
+            userList -> usersAdapter.submitList(userList)
+        }
     }
     //endregion
 
-    //region RecipesAdapter.Callback implementation
-    override fun onWholeLayoutClicked(recipe: Recipe) {
-        startActivity(RecipeDetailActivity.getStartIntent(context, recipe))
+    //region UsersAdapter.Callback implementation
+    override fun onWholeLayoutClicked(userProfile: UserProfile) {
+        //startActivity(UserDetailActivity.getStartIntent(context, userProfile))
     }
     //endregion
 }

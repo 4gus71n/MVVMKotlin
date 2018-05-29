@@ -121,7 +121,7 @@ class NetworkModule() {
     @Provides
     protected fun provideRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit {
         return Retrofit.Builder()
-                .baseUrl("http://private-8a944-recipes20.apiary-mock.com")  //We need a default url
+                .baseUrl("https://randomuser.me/api/")  //TODO move to the build.gradle
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okHttpClient)

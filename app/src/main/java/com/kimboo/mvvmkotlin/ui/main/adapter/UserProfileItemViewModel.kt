@@ -3,37 +3,37 @@ package com.kimboo.mvvmkotlin.ui.main.adapter
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import android.view.View
-import com.kimboo.mvvmkotlin.model.Recipe
+import com.kimboo.mvvmkotlin.model.UserProfile
 
 /**
  * Created by Agustin Tomas Larghi on 7/3/2018.
  * Email: agustin.tomas.larghi@gmail.com
  */
-class RecipeItemViewModel(var callback: Callback): ViewModel() {
+class UserProfileItemViewModel(var callback: Callback): ViewModel() {
 
     //region Variables declaration
-    val recipe = ObservableField<Recipe>()
+    val userProfile = ObservableField<UserProfile>()
     //endregion
 
     //region ViewModel lifecycle methods declaration
-    constructor(recipeModel: Recipe, callback: Callback) : this(callback) {
-        recipe.set(recipeModel)
+    constructor(userProfile: UserProfile, callback: Callback) : this(callback) {
+        this.userProfile.set(userProfile)
     }
     //endregion
 
     //region Public methods declaration
     fun onWholeLayoutClicked(view : View?) {
-        callback.onWholeLayoutClicked(recipe.get()!!) //TODO Check this
+        callback.onWholeLayoutClicked(userProfile.get()!!) //TODO Check this
     }
     //endregion
 
     //region Callback inferace declaration
 
     /**
-     * To communicate back to the {@link RecipesAdapter}
+     * To communicate back to the {@link UsersAdapter}
      */
     interface Callback {
-        fun onWholeLayoutClicked(recipe: Recipe)
+        fun onWholeLayoutClicked(userProfile: UserProfile)
     }
     //endregion
 

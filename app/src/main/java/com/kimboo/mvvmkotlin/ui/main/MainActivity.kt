@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_no_toolbar)
 
         if (savedInstanceState == null) {
+            //TODO Replace with Android KTX https://developer.android.com/kotlin/ktx#ktx
             supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, MainFragment.newInstance(), MainFragment.TAG)
                     .commit()

@@ -39,11 +39,10 @@ class RecipeDetailFragment: Fragment() {
     //endregion
 
     //region Fragment's lifecycle methods
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?) =
+    fun onCreatesView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?) =
             inflater!!.inflate(R.layout.fragment_recipe_detail, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    fun onViewsCreated(view: View?, savedInstanceState: Bundle?) {
 
         MyApp.viewInjector.inject(this)
 

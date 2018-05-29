@@ -1,6 +1,6 @@
 package com.kimboo.androidjobsnewsletter.di.module
 
-import com.kimboo.mvvmkotlin.retrofit.api.RecipesApi
+import com.kimboo.mvvmkotlin.retrofit.api.RandomUserApi
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -12,8 +12,8 @@ import retrofit2.Retrofit
 class RetrofitServiceModule {
 
     @Provides
-    fun provideRecipesApi(retrofit: Retrofit): RecipesApi {
-        return retrofit.create(RecipesApi::class.java)
+    fun provideRecipesApi(retrofit: Retrofit): RandomUserApi {
+        return retrofit.create(RandomUserApi::class.java)
     }
 
 }
