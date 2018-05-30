@@ -3,7 +3,9 @@ package com.kimboo.mvvmkotlin
 import android.app.Application
 import com.facebook.stetho.Stetho
 import com.kimboo.androidjobsnewsletter.di.module.AppModule
-import com.kimboo.mvvmkotlin.di.components.*
+import com.kimboo.mvvmkotlin.db.AppDb
+import com.kimboo.mvvmkotlin.di.components.DaggerInjector
+import com.kimboo.mvvmkotlin.di.components.Injector
 
 /**
  * Created by Agustin Tomas Larghi on 5/3/2018.
@@ -15,6 +17,9 @@ class MyApp: Application() {
         super.onCreate()
         Stetho.initializeWithDefaults(this);
         instance = this
+
+        AppDb.create(this, false)
+
         viewInjector = DaggerInjector
                 .builder()
                 .appModule(AppModule(this))

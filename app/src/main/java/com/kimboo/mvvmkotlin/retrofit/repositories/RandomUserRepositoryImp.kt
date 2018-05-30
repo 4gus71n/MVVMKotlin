@@ -1,32 +1,55 @@
 package com.kimboo.mvvmkotlin.retrofit.repositories
 
+import android.arch.paging.PagedList
+import android.arch.paging.RxPagedListBuilder
+import android.support.annotation.MainThread
+import com.kimboo.mvvmkotlin.db.UserDao
+import com.kimboo.mvvmkotlin.db.UserProfileBoundaryCallback
+import com.kimboo.mvvmkotlin.db.UserProfileDataSource
+import com.kimboo.mvvmkotlin.db.UserProfileDataSourceFactory
 import com.kimboo.mvvmkotlin.extensions.DataSource
 import com.kimboo.mvvmkotlin.extensions.transformEntity
 import com.kimboo.mvvmkotlin.model.UserProfile
 import com.kimboo.mvvmkotlin.retrofit.api.RandomUserApi
-import com.kimboo.mvvmkotlin.retrofit.mappers.RandomUserMapper
+import com.kimboo.mvvmkotlin.retrofit.mappers.serverUserProfileCollectionToModel
+import com.kimboo.mvvmkotlin.retrofit.mappers.serverUserProfileToModel
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 /**
  * Created by Agustin Tomas Larghi on 27/2/2018.
  * Email: agustin.tomas.larghi@gmail.com
  */
-class RandomUserRepositoryImp(val randomUserApi: RandomUserApi): RandomUserRepository {
+class RandomUserRepositoryImp(val randomUserApi: RandomUserApi, val userDao: UserDao): RandomUserRepository {
 
-    override fun getUserProfiles(page: Int, size: Int): Observable<DataSource<List<UserProfile>>> {
+    @MainThread
+    override fun getUserProfiles(): Observable<PagedList<UserProfile>> =
+            RxPagedListBuilder(UserProfileDataSourceFactory(userDao), UserProfileDataSource.PAGE_SIZE)
+                    .setBoundaryCallback(UserProfileBoundaryCallback(randomUserApi, userDao))
+                    .buildObservable()
+
+
+
+
+    override fun fetchUserProfiles(page: Int, size: Int): Observable<DataSource<List<UserProfile>>> {
         return randomUserApi.getUserProfiles(page, size)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .transformEntity(RandomUserMapper()::fromServerToModel)
+            .subscribeOn(Schedulers.io())
+            .transformEntity(::serverUserProfileCollectionToModel)
+            .doOnNext {
+                it.isSuccessfull{
+                    userDao.storeUserProfiles(it.model!!)
+                }
+            }
     }
 
-    override fun getUserProfile(id: String): Observable<DataSource<UserProfile>> {
-        return Observable.empty()
-        /*return randomUserApi.getUserProfile(id)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .transformEntity(RandomUserMapper()::fromServerToModel)*/
+    override fun fetchUserProfile(id: String): Observable<DataSource<UserProfile>> {
+        return randomUserApi.getUserProfile(id)
+            .subscribeOn(Schedulers.io())
+            .transformEntity(::serverUserProfileToModel)
+            .doOnNext {
+                it.isSuccessfull{
+                    userDao.storeUserProfile(it.model!!)
+                }
+            }
     }
 }

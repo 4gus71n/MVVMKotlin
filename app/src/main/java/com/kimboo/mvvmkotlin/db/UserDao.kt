@@ -24,4 +24,7 @@ interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun storeUserProfiles(userProfiles: List<UserProfile>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun storeUserProfile(userProfile: UserProfile)
 }

@@ -5,7 +5,7 @@ import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.kimboo.mvvmkotlin.databinding.ViewItemRecipeBinding
+import com.kimboo.mvvmkotlin.databinding.ViewItemUserProfileBinding
 import com.kimboo.mvvmkotlin.model.UserProfile
 
 /**
@@ -33,7 +33,7 @@ class UsersAdapter(var callback: UsersAdapter.Callback): PagedListAdapter<UserPr
 
     //region Adapter's lifecycle methods declaration
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainItemViewHolder {
-        val itemMainBinding = ViewItemRecipeBinding.inflate(LayoutInflater.from(parent!!.context))
+        val itemMainBinding = ViewItemUserProfileBinding.inflate(LayoutInflater.from(parent!!.context))
         return MainItemViewHolder(itemMainBinding, this)
     }
 
@@ -67,7 +67,7 @@ class UsersAdapter(var callback: UsersAdapter.Callback): PagedListAdapter<UserPr
     //endregion
 
     //region ViewHolder class declaration
-    class MainItemViewHolder(var itemMainBinding: ViewItemRecipeBinding, var callback: UserProfileItemViewModel.Callback) :
+    class MainItemViewHolder(var itemMainBinding: ViewItemUserProfileBinding, var callback: UserProfileItemViewModel.Callback) :
             RecyclerView.ViewHolder(itemMainBinding.root) {
         fun onBind(userProfile: UserProfile) {
             itemMainBinding.userProfileItemViewModel = UserProfileItemViewModel(userProfile, callback)

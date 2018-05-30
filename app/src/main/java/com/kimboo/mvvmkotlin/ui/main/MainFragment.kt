@@ -3,7 +3,7 @@ package com.kimboo.mvvmkotlin.ui.main
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,13 +40,13 @@ class MainFragment: Fragment(), UsersAdapter.Callback {
 
     private lateinit var fragmentMainBinding: FragmentMainBinding //Generated automatically
     private lateinit var mainViewModel: MainViewModel
+
+    private val usersAdapter = UsersAdapter(this)
     //endregion
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.fragment_main, container, false)
     }
-
-    private val usersAdapter = UsersAdapter(this)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,12 +56,15 @@ class MainFragment: Fragment(), UsersAdapter.Callback {
         mainViewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
         fragmentMainBinding.mainViewModel = mainViewModel
 
-        fragmentMainRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        fragmentMainRecyclerView.layoutManager = GridLayoutManager(context, 2)!!
         fragmentMainRecyclerView.adapter = usersAdapter
 
+        //Here we are listening for Room's flowable changes
         mainViewModel.userProfiles.subscribe {
-            userList -> usersAdapter.submitList(userList)
+            flowableList -> usersAdapter.submitList(flowableList)
         }
+
+        mainViewModel.fetchUserProfiles()
     }
     //endregion
 

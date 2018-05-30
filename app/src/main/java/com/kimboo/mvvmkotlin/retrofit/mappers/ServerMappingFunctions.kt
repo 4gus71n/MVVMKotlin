@@ -1,38 +1,33 @@
 package com.kimboo.mvvmkotlin.retrofit.mappers
 
-import android.util.Log
 import com.kimboo.mvvmkotlin.model.UserProfile
 import com.kimboo.mvvmkotlin.retrofit.responses.ApiRandomResponse
-import com.kimboo.mvvmkotlin.retrofit.responses.ApiRandomUserResponse
 
 /**
  * Created by Agustin Tomas Larghi on 6/3/2018.
  * Email: agustin.tomas.larghi@gmail.com
  */
-class RandomUserMapper {
 
-    fun fromServerToModel(serverResponses: ApiRandomResponse): List<UserProfile> {
-        var result = ArrayList<UserProfile>()
+fun serverUserProfileCollectionToModel(serverResponses: ApiRandomResponse): List<UserProfile> {
+    var result = ArrayList<UserProfile>()
 
-        for (response in serverResponses.results) {
-            try {
-                val userProfile = fromServerToModel(serverResponses, response)
-                result.add(userProfile)
-            } catch (e: Exception) {
-                Log.d("ASDASD", e.localizedMessage)
-            }
-        }
-
-        return result
-    }
-
-    fun fromServerToModel(serverResponses: ApiRandomResponse, response: ApiRandomUserResponse): UserProfile {
+    for (response in serverResponses.results) {
         val userProfile = UserProfile(response.email, response.id.idValue, response.id.idName, response.location.street,
                 response.location.city, response.location.state, response.location.postcode, response.gender,
                 response.dob, response.registered, response.phone, response.cell, response.picture.large,
                 response.picture.medium, response.picture.thumbnail, response.nationality)
         userProfile.indexPageNumber = serverResponses.info.page
-        return userProfile
+        result.add(userProfile)
     }
 
+    return result
+}
+
+fun serverUserProfileToModel(serverResponses: ApiRandomResponse): UserProfile {
+    serverResponses.results.first().let {
+        return UserProfile(it.email, it.id.idValue, it.id.idName, it.location.street,
+                it.location.city, it.location.state, it.location.postcode, it.gender,
+                it.dob, it.registered, it.phone, it.cell, it.picture.large,
+                it.picture.medium, it.picture.thumbnail, it.nationality)
+    }
 }

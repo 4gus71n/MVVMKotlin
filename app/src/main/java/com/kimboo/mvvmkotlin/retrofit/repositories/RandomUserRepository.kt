@@ -1,5 +1,6 @@
 package com.kimboo.mvvmkotlin.retrofit.repositories
 
+import android.arch.paging.PagedList
 import com.kimboo.mvvmkotlin.extensions.DataSource
 import com.kimboo.mvvmkotlin.model.UserProfile
 import io.reactivex.Observable
@@ -10,8 +11,10 @@ import io.reactivex.Observable
  */
 interface RandomUserRepository {
 
-    fun getUserProfiles(page: Int, size: Int): Observable<DataSource<List<UserProfile>>>
+    fun getUserProfiles(): Observable<PagedList<UserProfile>>
 
-    fun getUserProfile(id: String): Observable<DataSource<UserProfile>>
+    fun fetchUserProfiles(page: Int, size: Int): Observable<DataSource<List<UserProfile>>>
+
+    fun fetchUserProfile(id: String): Observable<DataSource<UserProfile>>
 
 }

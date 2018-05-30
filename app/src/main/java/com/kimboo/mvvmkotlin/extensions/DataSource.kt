@@ -4,6 +4,12 @@ import android.support.annotation.IntDef
 
 class DataSource<MODEL>(var model: MODEL?, @param:DataSourceState @field:DataSourceState @get:DataSourceState var state: Int) {
 
+    fun isSuccessfull(function: () -> Unit) {
+        if (state == SOURCE_HTTP_SUCCESS) {
+            model.let { function() }
+        }
+    }
+
     @Retention()
     @IntDef(SOURCE_HTTP_NOT_MODIFIED, SOURCE_HTTP_SUCCESS, SOURCE_DATABASE, SOURCE_MIXED)
     annotation class DataSourceState

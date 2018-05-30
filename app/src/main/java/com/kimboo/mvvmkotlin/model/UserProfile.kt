@@ -5,10 +5,12 @@ package com.kimboo.mvvmkotlin.model
  * Email: agustin.tomas.larghi@gmail.com
  */
 import android.arch.persistence.room.Entity
+import android.arch.persistence.room.Index
 import android.arch.persistence.room.PrimaryKey
 
-@Entity(tableName = "user_profile")
-class UserProfile(
+@Entity(tableName = "user_profile",
+        indices = [Index(value = ["email"], unique = false)])
+data class UserProfile(
         @PrimaryKey
         val email: String,
 
@@ -24,7 +26,7 @@ class UserProfile(
 
         val postcode: String?,
 
-        val gender: String?,
+        val gender: String,
 
         val dob: String?, //TODO Implement formatter to convert automatically to Calendar or Date
 

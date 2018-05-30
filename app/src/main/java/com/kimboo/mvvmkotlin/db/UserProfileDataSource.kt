@@ -9,15 +9,19 @@ import com.kimboo.mvvmkotlin.model.UserProfile
  */
 class UserProfileDataSource(val userDao: UserDao): PageKeyedDataSource<Int, UserProfile>() {
 
+    companion object {
+        const val PAGE_SIZE = 10
+    }
+
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, UserProfile>) {
-        callback.onResult(userDao.getUserProfileWithLimitAndOffset(50, 0), 0, 50)
+        callback.onResult(userDao.getUserProfileWithLimitAndOffset(PAGE_SIZE, 0), 0, PAGE_SIZE)
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, UserProfile>) {
-        callback.onResult(userDao.getUserProfileWithLimitAndOffset(50, params.key), params.key + 50)
+        callback.onResult(userDao.getUserProfileWithLimitAndOffset(PAGE_SIZE, params.key), params.key + PAGE_SIZE)
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, UserProfile>) {
-        //This one is not used
+        //We don't use this hook
     }
 }
