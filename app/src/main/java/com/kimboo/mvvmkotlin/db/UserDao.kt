@@ -1,5 +1,6 @@
 package com.kimboo.mvvmkotlin.db
 
+import android.arch.paging.DataSource
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
@@ -13,7 +14,7 @@ import com.kimboo.mvvmkotlin.model.UserProfile
 @Dao
 interface UserDao {
     @Query("SELECT * FROM user_profile")
-    fun getUserProfiles(): List<UserProfile>
+    fun getUserProfiles(): DataSource.Factory<Int, UserProfile>
 
     /**
      * We use this query in the {@link UserProfileDataSource} to get the data paginated from the DB

@@ -31,8 +31,9 @@ class UserProfileItemViewModel(var callback: Callback): ViewModel() {
     }
 
     fun getUserProfileThumbnailPic(): String {
-        val userProfile = userProfile?.get()!!
-        return userProfile.pictureThumbnail ?: userProfile.pictureMedium ?: userProfile.pictureLarge ?: getUserProfileDefaultAvatar()
+        //val userProfile = userProfile?.get()!!
+        //return userProfile.pictureThumbnail ?: userProfile.pictureMedium ?: userProfile.pictureLarge ?: getUserProfileDefaultAvatar()
+        return "http://i0.kym-cdn.com/entries/icons/original/000/002/203/20533_cooldog.jpg"
     }
 
     fun getUserProfileDefaultAvatar(): String {

@@ -38,6 +38,7 @@ class MainViewModel @Inject constructor (val randomUserRepository: RandomUserRep
 
                 override fun onComplete() {
                     isLoading.set(false)
+                    isLoading.notifyChange()
                 }
             });
     }

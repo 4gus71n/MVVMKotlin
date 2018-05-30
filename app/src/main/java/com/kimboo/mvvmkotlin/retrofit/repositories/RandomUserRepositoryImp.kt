@@ -5,8 +5,6 @@ import android.arch.paging.RxPagedListBuilder
 import android.support.annotation.MainThread
 import com.kimboo.mvvmkotlin.db.UserDao
 import com.kimboo.mvvmkotlin.db.UserProfileBoundaryCallback
-import com.kimboo.mvvmkotlin.db.UserProfileDataSource
-import com.kimboo.mvvmkotlin.db.UserProfileDataSourceFactory
 import com.kimboo.mvvmkotlin.extensions.DataSource
 import com.kimboo.mvvmkotlin.extensions.transformEntity
 import com.kimboo.mvvmkotlin.model.UserProfile
@@ -24,9 +22,9 @@ class RandomUserRepositoryImp(val randomUserApi: RandomUserApi, val userDao: Use
 
     @MainThread
     override fun getUserProfiles(): Observable<PagedList<UserProfile>> =
-            RxPagedListBuilder(UserProfileDataSourceFactory(userDao), UserProfileDataSource.PAGE_SIZE)
-                    .setBoundaryCallback(UserProfileBoundaryCallback(randomUserApi, userDao))
-                    .buildObservable()
+        RxPagedListBuilder(userDao.getUserProfiles(), 50)
+                .setBoundaryCallback(UserProfileBoundaryCallback(randomUserApi, userDao))
+                .buildObservable()
 
 
 
