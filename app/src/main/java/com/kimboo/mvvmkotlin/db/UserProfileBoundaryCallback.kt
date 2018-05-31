@@ -21,7 +21,7 @@ class UserProfileBoundaryCallback(val randomUserApi: RandomUserApi,
      * Database returned 0 items. We should query the backend for more items.
      */
     override fun onZeroItemsLoaded() {
-        randomUserApi.getUserProfiles(0, UserProfileDataSource.PAGE_SIZE)
+        randomUserApi.getUserProfiles(0, 50)
             .transformEntity(::serverUserProfileCollectionToModel)
             .subscribeOn(Schedulers.io()) //We shouldn't write in the db over the UI thread!
             .subscribe(object: DataSourceSubscriber<List<UserProfile>>() {
@@ -35,7 +35,7 @@ class UserProfileBoundaryCallback(val randomUserApi: RandomUserApi,
      * User reached to the end of the list.
      */
     override fun onItemAtEndLoaded(itemAtEnd: UserProfile) {
-        randomUserApi.getUserProfiles(itemAtEnd.indexPageNumber + 1, UserProfileDataSource.PAGE_SIZE)
+        randomUserApi.getUserProfiles(itemAtEnd.indexPageNumber + 1, 50)
             .transformEntity(::serverUserProfileCollectionToModel)
             .subscribeOn(Schedulers.io()) //We shouldn't write in the db over the UI thread!
             .subscribe(object: DataSourceSubscriber<List<UserProfile>>() {

@@ -18,6 +18,12 @@ data class UserProfile(
 
         val idname: String?,
 
+        val title: String,
+
+        val name: String,
+
+        val lastname: String,
+
         val street: String?,
 
         val city: String?,
@@ -45,4 +51,6 @@ data class UserProfile(
         val nationality: String?) {
     // to be consistent w/ changing backend order, we need to keep a data like this
     var indexPageNumber: Int = 0
+
+    fun getFormattedName() = title.capitalize() + " " + name.capitalize() + " " + lastname.capitalize()
 }

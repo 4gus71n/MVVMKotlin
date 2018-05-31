@@ -3,7 +3,7 @@ package com.kimboo.mvvmkotlin.ui.main
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,8 +56,9 @@ class MainFragment: Fragment(), UsersAdapter.Callback {
         mainViewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
         fragmentMainBinding.mainViewModel = mainViewModel
 
-        fragmentMainRecyclerView.layoutManager = GridLayoutManager(context, 2)!!
+        fragmentMainRecyclerView.layoutManager = LinearLayoutManager(context)
         fragmentMainRecyclerView.adapter = usersAdapter
+        fragmentMainRecyclerView.setHasFixedSize(true)
 
         //Here we are listening for Room's flowable changes
         mainViewModel.userProfiles.subscribe {

@@ -5,6 +5,7 @@ import android.databinding.BindingAdapter
 import android.databinding.ObservableField
 import android.support.design.widget.Snackbar
 import android.view.View
+import com.kimboo.mvvmkotlin.extensions.DataSource
 import com.kimboo.mvvmkotlin.extensions.DataSourceSubscriber
 import com.kimboo.mvvmkotlin.extensions.subscribe
 import com.kimboo.mvvmkotlin.model.UserProfile
@@ -34,6 +35,11 @@ class MainViewModel @Inject constructor (val randomUserRepository: RandomUserRep
                 override fun onError(t: Throwable?) {
                     snackBarMessage.set(t?.localizedMessage)
                     snackBarMessage.notifyChange()
+                }
+
+                override fun onNext(dataSource: DataSource<List<UserProfile>>) {
+                    isLoading.set(false)
+                    isLoading.notifyChange()
                 }
 
                 override fun onComplete() {

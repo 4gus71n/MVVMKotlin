@@ -55,9 +55,23 @@ data class ApiRandomInfoResponse(
     val page: Int
 )
 
+data class ApiRandomUserNameResponse(
+        @SerializedName("title")
+        val title: String,
+
+        @SerializedName("first")
+        val firstName: String,
+
+        @SerializedName("last")
+        val lastName: String
+)
+
 data class ApiRandomUserResponse(
         @SerializedName("email")
         val email: String,
+
+        @SerializedName("name")
+        val name: ApiRandomUserNameResponse,
 
         @SerializedName("id")
         val id: ApiRandomUserIdResponse,

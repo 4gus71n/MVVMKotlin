@@ -12,7 +12,7 @@ import com.kimboo.mvvmkotlin.model.UserProfile
  */
 @Database(
         entities = arrayOf(UserProfile::class),
-        version = 13,
+        version = 15,
         exportSchema = false
 )
 abstract class AppDb : RoomDatabase() {

@@ -31,25 +31,27 @@ class UserProfileItemViewModel(var callback: Callback): ViewModel() {
     }
 
     fun getUserProfileThumbnailPic(): String {
-        //val userProfile = userProfile?.get()!!
-        //return userProfile.pictureThumbnail ?: userProfile.pictureMedium ?: userProfile.pictureLarge ?: getUserProfileDefaultAvatar()
-        return "http://i0.kym-cdn.com/entries/icons/original/000/002/203/20533_cooldog.jpg"
+        val userProfile = userProfile?.get()!!
+
+        return userProfile.pictureLarge ?: userProfile.pictureMedium ?: getUserProfileDefaultAvatar()
     }
 
     fun getUserProfileDefaultAvatar(): String {
         val userProfile = userProfile?.get()!!
 
         return if (userProfile.gender.contentEquals("male")) {
-            "asdads"
+            "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png"
         } else {
-            "sdfsdf"
+            "https://utahstatecapitol.utah.gov/wp-content/uploads/defaultfemale.png"
         }
     }
 
     companion object {
         @JvmStatic @BindingAdapter(value = "app:imageUrl", requireAll = true)
-        fun loadImage(view: ImageView, imageUrl: String) {
-            Glide.with(view.context).load(imageUrl).into(view);
+        fun loadImage(view: ImageView, imageUrl: String?) {
+            imageUrl?.let {
+                Glide.with(view.context).load(imageUrl).into(view);
+            }
         }
     }
     //endregion

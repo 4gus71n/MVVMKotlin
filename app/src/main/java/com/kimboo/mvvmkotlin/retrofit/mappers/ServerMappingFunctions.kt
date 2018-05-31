@@ -12,7 +12,8 @@ fun serverUserProfileCollectionToModel(serverResponses: ApiRandomResponse): List
     var result = ArrayList<UserProfile>()
 
     for (response in serverResponses.results) {
-        val userProfile = UserProfile(response.email, response.id.idValue, response.id.idName, response.location.street,
+        val userProfile = UserProfile(response.email, response.id.idValue, response.id.idName,
+                response.name.title, response.name.firstName, response.name.lastName, response.location.street,
                 response.location.city, response.location.state, response.location.postcode, response.gender,
                 response.dob, response.registered, response.phone, response.cell, response.picture.large,
                 response.picture.medium, response.picture.thumbnail, response.nationality)
@@ -25,7 +26,8 @@ fun serverUserProfileCollectionToModel(serverResponses: ApiRandomResponse): List
 
 fun serverUserProfileToModel(serverResponses: ApiRandomResponse): UserProfile {
     serverResponses.results.first().let {
-        return UserProfile(it.email, it.id.idValue, it.id.idName, it.location.street,
+        return UserProfile(it.email, it.id.idValue, it.id.idName,
+                it.name.title, it.name.firstName, it.name.lastName, it.location.street,
                 it.location.city, it.location.state, it.location.postcode, it.gender,
                 it.dob, it.registered, it.phone, it.cell, it.picture.large,
                 it.picture.medium, it.picture.thumbnail, it.nationality)
