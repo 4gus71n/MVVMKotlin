@@ -57,12 +57,22 @@ class UsersAdapter(var callback: UsersAdapter.Callback): PagedListAdapter<UserPr
      */
     interface Callback {
         fun onWholeLayoutClicked(userProfile: UserProfile);
+        fun onPhoneClicked(userProfile: UserProfile)
+        fun onEmailClicked(userProfile: UserProfile)
     }
     //endregion
 
     //region UserProfileItemViewModel.Callback implementation
     override fun onWholeLayoutClicked(userProfile: UserProfile) {
         callback.onWholeLayoutClicked(userProfile)
+    }
+
+    override fun onPhoneClicked(userProfile: UserProfile) {
+        callback.onPhoneClicked(userProfile)
+    }
+
+    override fun onEmailClicked(userProfile: UserProfile) {
+        callback.onEmailClicked(userProfile)
     }
     //endregion
 

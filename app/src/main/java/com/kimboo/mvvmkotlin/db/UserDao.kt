@@ -1,11 +1,9 @@
 package com.kimboo.mvvmkotlin.db
 
 import android.arch.paging.DataSource
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.OnConflictStrategy
-import android.arch.persistence.room.Query
+import android.arch.persistence.room.*
 import com.kimboo.mvvmkotlin.model.UserProfile
+import io.reactivex.Flowable
 
 /**
  * Created by Agustin Tomas Larghi on 28/5/2018.
@@ -15,6 +13,9 @@ import com.kimboo.mvvmkotlin.model.UserProfile
 interface UserDao {
     @Query("SELECT * FROM user_profile")
     fun getUserProfiles(): DataSource.Factory<Int, UserProfile>
+
+    @Query("SELECT * FROM user_profile where email = :email")
+    fun getUserProfile(email: String): Flowable<UserProfile>
 
     /**
      * We use this query in the {@link UserProfileDataSource} to get the data paginated from the DB
@@ -28,4 +29,7 @@ interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun storeUserProfile(userProfile: UserProfile)
+
+    @Update()
+    fun updateProfile(userProfile: UserProfile)
 }

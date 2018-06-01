@@ -58,6 +58,9 @@ dependencies {
 
     //region Glide dependencies
     implementation "com.github.bumptech.glide:glide:$versions.glide"
+    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
     annotationProcessor "com.github.bumptech.glide:compiler:$versions.glide"
     //endregion
 

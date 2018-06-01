@@ -30,20 +30,12 @@ class UserProfileItemViewModel(var callback: Callback): ViewModel() {
         callback.onWholeLayoutClicked(userProfile.get()!!) //TODO Check this
     }
 
-    fun getUserProfileThumbnailPic(): String {
-        val userProfile = userProfile?.get()!!
-
-        return userProfile.pictureLarge ?: userProfile.pictureMedium ?: getUserProfileDefaultAvatar()
+    fun onPhoneClicked(view : View?) {
+        callback.onPhoneClicked(userProfile.get()!!) //TODO Check this
     }
 
-    fun getUserProfileDefaultAvatar(): String {
-        val userProfile = userProfile?.get()!!
-
-        return if (userProfile.gender.contentEquals("male")) {
-            "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png"
-        } else {
-            "https://utahstatecapitol.utah.gov/wp-content/uploads/defaultfemale.png"
-        }
+    fun onEmailClicked(view : View?) {
+        callback.onEmailClicked(userProfile.get()!!) //TODO Check this
     }
 
     companion object {
@@ -62,6 +54,8 @@ class UserProfileItemViewModel(var callback: Callback): ViewModel() {
      */
     interface Callback {
         fun onWholeLayoutClicked(userProfile: UserProfile)
+        fun onPhoneClicked(userProfile: UserProfile)
+        fun onEmailClicked(userProfile: UserProfile)
     }
     //endregion
 

@@ -2,8 +2,8 @@ package com.kimboo.mvvmkotlin.di.components
 
 import com.kimboo.androidjobsnewsletter.di.module.*
 import com.kimboo.mvvmkotlin.di.modules.ViewModelModule
-import com.kimboo.mvvmkotlin.ui.main.MainFragment
-import com.kimboo.mvvmkotlin.ui.recipedetail.RecipeDetailFragment
+import com.kimboo.mvvmkotlin.ui.main.UserProfileListFragment
+import com.kimboo.mvvmkotlin.ui.userdetail.UserDetailProfileFragment
 import dagger.Component
 import javax.inject.Singleton
 
@@ -12,8 +12,8 @@ import javax.inject.Singleton
     (RetrofitServiceModule::class), (RepositoryModule::class), (ViewModelModule::class)])
 interface Injector {
 
-    fun inject(fragment: MainFragment)
+    fun inject(fragment: UserProfileListFragment)
 
-    fun inject(fragment: RecipeDetailFragment)
+    fun inject(profileFragment: UserDetailProfileFragment)
 
 }

@@ -34,7 +34,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        app:imageUrl="@{userProfileItemViewModel.getUserProfileThumbnailPic()}"
+                        app:imageUrl="@{userProfileItemViewModel.userProfile.getUserProfileThumbnailPic()}"
                         android:scaleType="centerCrop"
                         android:layout_width="match_parent"
                         android:layout_height="150dp" />
@@ -67,6 +67,7 @@
                             style="@style/TextAppearance.AppCompat.Small.Inverse"
                             android:drawableLeft="@drawable/ic_email_white_24dp"
                             android:drawablePadding="8dp"
+                            android:onClick="@{userProfileItemViewModel::onEmailClicked}"
                             android:text="@{userProfileItemViewModel.userProfile.email}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
@@ -77,6 +78,7 @@
                             style="@style/TextAppearance.AppCompat.Small.Inverse"
                             android:drawableLeft="@drawable/ic_local_phone_white_24dp"
                             android:drawablePadding="8dp"
+                            android:onClick="@{userProfileItemViewModel::onPhoneClicked}"
                             android:text="@{userProfileItemViewModel.userProfile.phone}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />

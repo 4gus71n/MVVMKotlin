@@ -16,6 +16,6 @@ interface RandomUserApi {
     fun getUserProfiles(@Query("page") page: Int, @Query("results") results: Int): Observable<Response<ApiRandomResponse>>
 
     @GET("/api")
-    fun getUserProfile(@Query("id") recipeId: String): Observable<Response<ApiRandomResponse>>
+    fun getUserProfile(@Query("email") email: String): Observable<Response<ApiRandomResponse>>
 
 }

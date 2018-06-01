@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MVVMKotlin</string>
+    <string name="title_userprofile_list">UserProfiles</string>
+    <string name="title_userprofile_detail">UserProfile Detail</string>
 </resources>

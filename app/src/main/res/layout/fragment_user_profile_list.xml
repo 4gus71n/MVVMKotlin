@@ -5,20 +5,20 @@
 
     <data>
         <variable
-            name="mainViewModel"
-            type="com.kimboo.mvvmkotlin.ui.main.MainViewModel"/>
+            name="userProfileListViewModel"
+            type="com.kimboo.mvvmkotlin.ui.main.UserProfileListViewModel"/>
     </data>
 
     <LinearLayout
         android:padding="4dp"
-        app:showSnackbar="@{mainViewModel.snackBarMessage}"
+        app:showSnackbar="@{userProfileListViewModel.snackBarMessage}"
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/fragmentMainSwipeRefreshLayout"
-            app:refreshing="@{mainViewModel.isLoading}"
-            app:onRefreshListener="@{() -> mainViewModel.fetchUserProfiles()}"
+            app:refreshing="@{userProfileListViewModel.isLoading}"
+            app:onRefreshListener="@{() -> userProfileListViewModel.fetchUserProfiles()}"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

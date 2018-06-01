@@ -1,11 +1,11 @@
-package com.kimboo.mvvmkotlin.ui.recipedetail
+package com.kimboo.mvvmkotlin.ui.userdetail
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.kimboo.mvvmkotlin.R
-import com.kimboo.mvvmkotlin.model.Recipe
+import com.kimboo.mvvmkotlin.model.UserProfile
 
 /**
  * Created by Agustin Tomas Larghi on 31/3/2018.
@@ -15,11 +15,11 @@ class UserDetailActivity: AppCompatActivity() {
 
     //region Constant variables declartion
     companion object {
-        val ARG_RECIPE_BUNDLE = "arg_recipe_bundle"
+        val ARG_USER_PROFILE_BUNDLE = "arg_user_profile_bundle"
 
-        fun getStartIntent(context: Context, recipe: Recipe): Intent {
+        fun getStartIntent(context: Context, userProfile: UserProfile): Intent {
             val intent = Intent(context, UserDetailActivity::class.java)
-            intent.putExtra(ARG_RECIPE_BUNDLE, recipe)
+            intent.putExtra(ARG_USER_PROFILE_BUNDLE, userProfile)
             return intent
         }
     }
@@ -30,9 +30,15 @@ class UserDetailActivity: AppCompatActivity() {
         setContentView(R.layout.activity_no_toolbar)
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, RecipeDetailFragment.newInstance(), RecipeDetailFragment.TAG)
-                    .commit()
+
+            if (intent.extras.containsKey(ARG_USER_PROFILE_BUNDLE)) {
+                val userProfile = intent.extras.get(ARG_USER_PROFILE_BUNDLE) as UserProfile
+
+                supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainer, UserDetailProfileFragment.newInstance(userProfile), UserDetailProfileFragment.TAG)
+                        .commit()
+            }
+
         }
     }
 

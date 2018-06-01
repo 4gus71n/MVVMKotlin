@@ -17,7 +17,7 @@ import javax.inject.Inject
  * Email: agustin.tomas.larghi@gmail.com
  */
 //If you need a context aware ViewModel you should use AndroidViewModel
-class MainViewModel @Inject constructor (val randomUserRepository: RandomUserRepository): ViewModel() {
+class UserProfileListViewModel @Inject constructor (val randomUserRepository: RandomUserRepository): ViewModel() {
 
     //Notice that the variables are read-only, but not their properties
     val isLoading = ObservableField<Boolean>()

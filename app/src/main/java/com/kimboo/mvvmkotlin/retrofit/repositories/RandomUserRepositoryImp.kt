@@ -27,7 +27,7 @@ class RandomUserRepositoryImp(val randomUserApi: RandomUserApi, val userDao: Use
                 .buildObservable()
 
 
-
+    override fun getUserProfile(email: String) = userDao.getUserProfile(email).toObservable()
 
     override fun fetchUserProfiles(page: Int, size: Int): Observable<DataSource<List<UserProfile>>> {
         return randomUserApi.getUserProfiles(page, size)
@@ -40,8 +40,12 @@ class RandomUserRepositoryImp(val randomUserApi: RandomUserApi, val userDao: Use
             }
     }
 
-    override fun fetchUserProfile(id: String): Observable<DataSource<UserProfile>> {
-        return randomUserApi.getUserProfile(id)
+    override fun updateProfile(userProfile: UserProfile) {
+        userDao.updateProfile(userProfile)
+    }
+
+    override fun fetchUserProfile(email: String): Observable<DataSource<UserProfile>> {
+        return randomUserApi.getUserProfile(email)
             .subscribeOn(Schedulers.io())
             .transformEntity(::serverUserProfileToModel)
             .doOnNext {

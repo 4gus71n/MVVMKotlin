@@ -7,6 +7,8 @@ package com.kimboo.mvvmkotlin.model
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.Index
 import android.arch.persistence.room.PrimaryKey
+import android.os.Parcel
+import android.os.Parcelable
 
 @Entity(tableName = "user_profile",
         indices = [Index(value = ["email"], unique = false)])
@@ -20,7 +22,7 @@ data class UserProfile(
 
         val title: String,
 
-        val name: String,
+        var name: String,
 
         val lastname: String,
 
@@ -48,9 +50,83 @@ data class UserProfile(
 
         val pictureThumbnail: String?,
 
-        val nationality: String?) {
+        val nationality: String?) : Parcelable {
     // to be consistent w/ changing backend order, we need to keep a data like this
     var indexPageNumber: Int = 0
 
+    constructor(parcel: Parcel) : this(
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString()) {
+        indexPageNumber = parcel.readInt()
+    }
+
+    fun getFormattedAddress() = street?.capitalize() + ", " + state?.capitalize() + ", " + city?.capitalize()
+
     fun getFormattedName() = title.capitalize() + " " + name.capitalize() + " " + lastname.capitalize()
+
+    fun getUserProfileThumbnailPic(): String {
+        return pictureLarge ?: pictureMedium ?: getUserProfileDefaultAvatar()
+    }
+
+    fun getUserProfileDefaultAvatar(): String {
+        return if (gender.contentEquals("male")) {
+            "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png"
+        } else {
+            "https://utahstatecapitol.utah.gov/wp-content/uploads/defaultfemale.png"
+        }
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(email)
+        parcel.writeString(id)
+        parcel.writeString(idname)
+        parcel.writeString(title)
+        parcel.writeString(name)
+        parcel.writeString(lastname)
+        parcel.writeString(street)
+        parcel.writeString(city)
+        parcel.writeString(state)
+        parcel.writeString(postcode)
+        parcel.writeString(gender)
+        parcel.writeString(dob)
+        parcel.writeString(registered)
+        parcel.writeString(phone)
+        parcel.writeString(cell)
+        parcel.writeString(pictureLarge)
+        parcel.writeString(pictureMedium)
+        parcel.writeString(pictureThumbnail)
+        parcel.writeString(nationality)
+        parcel.writeInt(indexPageNumber)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<UserProfile> {
+        override fun createFromParcel(parcel: Parcel): UserProfile {
+            return UserProfile(parcel)
+        }
+
+        override fun newArray(size: Int): Array<UserProfile?> {
+            return arrayOfNulls(size)
+        }
+    }
 }
