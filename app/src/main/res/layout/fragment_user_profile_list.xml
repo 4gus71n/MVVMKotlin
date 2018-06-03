@@ -6,7 +6,7 @@
     <data>
         <variable
             name="userProfileListViewModel"
-            type="com.kimboo.mvvmkotlin.ui.main.UserProfileListViewModel"/>
+            type="com.kimboo.mvvmkotlin.ui.userlist.UserProfileListViewModel"/>
     </data>
 
     <LinearLayout

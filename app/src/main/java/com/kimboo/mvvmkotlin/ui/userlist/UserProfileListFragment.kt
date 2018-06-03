@@ -1,4 +1,4 @@
-package com.kimboo.mvvmkotlin.ui.main
+package com.kimboo.mvvmkotlin.ui.userlist
 
 import android.Manifest
 import android.arch.lifecycle.ViewModelProviders
@@ -18,7 +18,7 @@ import com.kimboo.mvvmkotlin.R
 import com.kimboo.mvvmkotlin.databinding.FragmentUserProfileListBinding
 import com.kimboo.mvvmkotlin.di.modules.MyViewModelFactory
 import com.kimboo.mvvmkotlin.model.UserProfile
-import com.kimboo.mvvmkotlin.ui.main.adapter.UsersAdapter
+import com.kimboo.mvvmkotlin.ui.userlist.adapter.UsersAdapter
 import kotlinx.android.synthetic.main.fragment_user_profile_list.*
 import javax.inject.Inject
 

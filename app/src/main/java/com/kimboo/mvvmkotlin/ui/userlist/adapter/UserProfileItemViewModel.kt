@@ -1,4 +1,4 @@
-package com.kimboo.mvvmkotlin.ui.main.adapter
+package com.kimboo.mvvmkotlin.ui.userlist.adapter
 
 import android.arch.lifecycle.ViewModel
 import android.databinding.BindingAdapter

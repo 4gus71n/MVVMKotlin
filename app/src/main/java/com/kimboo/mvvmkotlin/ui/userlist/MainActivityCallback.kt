@@ -1,4 +1,4 @@
-package com.kimboo.mvvmkotlin.ui.main
+package com.kimboo.mvvmkotlin.ui.userlist
 
 import com.kimboo.mvvmkotlin.model.UserProfile
 

@@ -20,11 +20,11 @@ data class UserProfile(
 
         val idname: String?,
 
-        val title: String,
+        var title: String,
 
         var name: String,
 
-        val lastname: String,
+        var lastname: String,
 
         val street: String?,
 

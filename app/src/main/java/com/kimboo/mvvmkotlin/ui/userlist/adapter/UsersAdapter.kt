@@ -1,4 +1,4 @@
-package com.kimboo.mvvmkotlin.ui.main.adapter
+package com.kimboo.mvvmkotlin.ui.userlist.adapter
 
 import android.arch.paging.PagedListAdapter
 import android.support.v7.util.DiffUtil

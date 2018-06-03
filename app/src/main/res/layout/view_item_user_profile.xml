@@ -6,7 +6,7 @@
     <data>
         <variable
             name="userProfileItemViewModel"
-            type="com.kimboo.mvvmkotlin.ui.main.adapter.UserProfileItemViewModel"/>
+            type="com.kimboo.mvvmkotlin.ui.userlist.adapter.UserProfileItemViewModel"/>
     </data>
 
     <FrameLayout

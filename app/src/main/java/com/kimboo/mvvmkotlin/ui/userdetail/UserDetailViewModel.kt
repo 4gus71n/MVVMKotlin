@@ -1,10 +1,11 @@
 package com.kimboo.mvvmkotlin.ui.userdetail
 
 import android.arch.lifecycle.ViewModel
+import android.content.Context
 import android.databinding.ObservableField
 import com.kimboo.mvvmkotlin.model.UserProfile
 import com.kimboo.mvvmkotlin.retrofit.repositories.RandomUserRepository
-import java.util.*
+import com.kimboo.mvvmkotlin.ui.edituserdetail.EditUserDetailActivity
 import javax.inject.Inject
 
 /**
@@ -12,7 +13,8 @@ import javax.inject.Inject
  * Email: agustin.tomas.larghi@gmail.com
  */
 //If you need a context aware ViewModel you should use AndroidViewModel
-class UserDetailViewModel @Inject constructor (val randomUserRepository: RandomUserRepository): ViewModel() {
+class UserDetailViewModel @Inject constructor (val context: Context,
+                                               val randomUserRepository: RandomUserRepository): ViewModel() {
 
     //Notice that the variables are read-only, but not their properties
     var userProfile = ObservableField<UserProfile>()
@@ -28,13 +30,9 @@ class UserDetailViewModel @Inject constructor (val randomUserRepository: RandomU
         randomUserRepository.fetchUserProfile(profile.email)
     }
 
-    fun onRandomizeClicked() {
+    fun onEditClicked() {
         var userProfile = userProfile.get()!!
-        userProfile.name = "Random Name #" + Random().nextInt()
-
-        //Note: Using INSERTS instead of UPDATES removes the record from the PagedLive that we are using
-        //in the main screen.
-        randomUserRepository.updateProfile(userProfile)
+        context.startActivity(EditUserDetailActivity.getStartIntent(context, userProfile))
     }
 
 

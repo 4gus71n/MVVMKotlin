@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">MVVMKotlin</string>
-    <string name="title_userprofile_list">UserProfiles</string>
-    <string name="title_userprofile_detail">UserProfile Detail</string>
+    <string name="app_description">This App demonstrates how we can communicate the different layers of an MVVM architecture through Room/Flowables. Notice that the main list is working with the Android Jetpack\'s Pagination library fetching the data from the DB. If we edit any field of the records, that information is gonna be automatically broadcasted back to the UI through Room, hence no need of EventBus or hooking from the onSaveInstanceState() methods or anything like that.</string>
 </resources>

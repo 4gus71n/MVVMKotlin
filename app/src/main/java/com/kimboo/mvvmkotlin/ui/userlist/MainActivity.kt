@@ -1,4 +1,4 @@
-package com.kimboo.mvvmkotlin.ui.main
+package com.kimboo.mvvmkotlin.ui.userlist
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
