@@ -16,7 +16,10 @@ Couple of things that I think are worth pointing out:
 More info:
 
 SSOT -> https://medium.com/@iammert/offline-app-with-rxjava-2-and-room-ccd0b5c18101
+
 DOES AND DONTS -> https://medium.com/google-developers/viewmodels-and-livedata-patterns-antipatterns-21efaef74a54
+
+Kotlin Etiquette -> https://blog.philipphauer.de/idiomatic-kotlin-best-practices/
 
 # Legacy documentation!
 
