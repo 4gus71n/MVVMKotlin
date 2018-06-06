@@ -35,6 +35,8 @@ class UserProfileListViewModel @Inject constructor (val randomUserRepository: Ra
                 override fun onError(t: Throwable?) {
                     snackBarMessage.set(t?.localizedMessage)
                     snackBarMessage.notifyChange()
+                    isLoading.set(false)
+                    isLoading.notifyChange()
                 }
 
                 override fun onNext(dataSource: DataSource<List<UserProfile>>) {
@@ -52,7 +54,7 @@ class UserProfileListViewModel @Inject constructor (val randomUserRepository: Ra
     companion object {
         @JvmStatic @BindingAdapter(value = "app:showSnackbar", requireAll = true)
         fun bindSnackBar(view: View, showSnackbar: String?) {
-            if (showSnackbar != null) {
+            showSnackbar?.let {
                 Snackbar.make(view, showSnackbar, Snackbar.LENGTH_LONG).show();
             }
         }

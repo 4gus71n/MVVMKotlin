@@ -108,13 +108,12 @@ class EditUserDetailViewModel @Inject constructor (val context: Context, val ran
     }
 
     fun onSaveClicked() {
-        user.name = name.get()!!
-        user.title = title.get()!!
-        user.lastname = lastname.get()!!
+        name.get()?.let { user.name = it }
+        title.get()?.let { user.title = it }
+        lastname.get()?.let { user.lastname = it }
         //Note: Using INSERTS instead of UPDATES removes the record from the PagedLive that we are using
         //in the main screen.
         randomUserRepository.updateProfile(user)
-
         uiEvents.value = PROFILE_UPDATED
     }
 

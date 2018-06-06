@@ -1,5 +1,6 @@
 package com.kimboo.mvvmkotlin.ui.userlist
 
+import android.view.View
 import com.kimboo.mvvmkotlin.model.UserProfile
 
 /**
@@ -7,5 +8,5 @@ import com.kimboo.mvvmkotlin.model.UserProfile
  * Email: agustin.tomas.larghi@gmail.com
  */
 interface MainActivityCallback {
-    fun onUserProfileClicked(userProfile: UserProfile)
+    fun onUserProfileClicked(view: View?, userProfile: UserProfile)
 }

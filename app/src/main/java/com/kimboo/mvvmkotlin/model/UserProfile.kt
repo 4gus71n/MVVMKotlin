@@ -120,6 +120,15 @@ data class UserProfile(
         return 0
     }
 
+    override fun equals(other: Any?): Boolean {
+        return if (other is UserProfile) {
+            arrayOf(email, title, name, lastname) contentEquals
+                    arrayOf(other.email, other.title, other.name, other.lastname)
+        } else {
+            false
+        }
+    }
+
     companion object CREATOR : Parcelable.Creator<UserProfile> {
         override fun createFromParcel(parcel: Parcel): UserProfile {
             return UserProfile(parcel)

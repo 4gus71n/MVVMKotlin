@@ -27,7 +27,7 @@ class UserProfileItemViewModel(var callback: Callback): ViewModel() {
 
     //region Public methods declaration
     fun onWholeLayoutClicked(view : View?) {
-        callback.onWholeLayoutClicked(userProfile.get()!!) //TODO Check this
+        callback.onWholeLayoutClicked(view, userProfile.get()!!) //TODO Check this
     }
 
     fun onPhoneClicked(view : View?) {
@@ -53,7 +53,7 @@ class UserProfileItemViewModel(var callback: Callback): ViewModel() {
      * To communicate back to the {@link UsersAdapter}
      */
     interface Callback {
-        fun onWholeLayoutClicked(userProfile: UserProfile)
+        fun onWholeLayoutClicked(view: View?, userProfile: UserProfile)
         fun onPhoneClicked(userProfile: UserProfile)
         fun onEmailClicked(userProfile: UserProfile)
     }
