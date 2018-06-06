@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -67,6 +68,12 @@ class UserProfileListFragment: Fragment(), UsersAdapter.Callback {
         fragmentMainRecyclerView.layoutManager = LinearLayoutManager(context)
         fragmentMainRecyclerView.adapter = usersAdapter
         fragmentMainRecyclerView.setHasFixedSize(true)
+
+        with (activity as AppCompatActivity) {
+            setSupportActionBar(userProfileListToolbar)
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            supportActionBar?.setHomeButtonEnabled(true)
+        }
 
         //Here we are listening for Room's flowable changes
         userProfileListViewModel.userProfiles.subscribe {

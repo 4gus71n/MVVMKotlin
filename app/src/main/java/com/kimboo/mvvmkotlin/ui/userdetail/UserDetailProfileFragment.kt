@@ -1,5 +1,6 @@
 package com.kimboo.mvvmkotlin.ui.userdetail
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -12,6 +13,7 @@ import com.kimboo.mvvmkotlin.R
 import com.kimboo.mvvmkotlin.databinding.FragmentUserDetailProfileBinding
 import com.kimboo.mvvmkotlin.di.modules.MyViewModelFactory
 import com.kimboo.mvvmkotlin.model.UserProfile
+import com.kimboo.mvvmkotlin.ui.edituserdetail.EditUserDetailActivity
 import kotlinx.android.synthetic.main.fragment_user_detail_profile.*
 import javax.inject.Inject
 
@@ -64,6 +66,16 @@ class UserDetailProfileFragment: Fragment() {
         if (arguments != null) {
             val userProfile = arguments?.get(ARG_USER_PROFILE_BUNDLE) as UserProfile
             userDetailViewModel.setUserProfile(userProfile);
+        }
+
+        userDetailViewModel.uiEventOnEdit.observe(this, Observer {
+            onEditButtonClicked(it)
+        })
+    }
+
+    private fun onEditButtonClicked(userProfile: UserProfile?) {
+        userProfile?.let {
+            startActivity(EditUserDetailActivity.getStartIntent(context!!, it))
         }
     }
     //endregion

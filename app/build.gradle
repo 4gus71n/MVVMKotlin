@@ -82,6 +82,7 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:$versions.lifecycle"
     implementation "android.arch.lifecycle:viewmodel:$versions.lifecycle"
     implementation "android.arch.lifecycle:livedata:$versions.lifecycle"
+    implementation "android.arch.lifecycle:reactivestreams:$versions.lifecycle"
     kapt "android.arch.lifecycle:compiler:$versions.lifecycle"
     //endregion
 

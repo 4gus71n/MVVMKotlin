@@ -24,9 +24,9 @@
                 android:value="com.kimboo.mvvmkotlin.ui.userdetail.UserDetailActivity" />
         </activity>
 
-        <activity android:name=".ui.userdetail.UserDetailActivity" />
+        <activity android:name=".ui.userdetail.UserDetailActivity" android:parentActivityName=".ui.userlist.MainActivity" />
 
-        <activity android:name=".ui.edituserdetail.EditUserDetailActivity" />
+        <activity android:name=".ui.edituserdetail.EditUserDetailActivity" android:parentActivityName=".ui.userdetail.UserDetailActivity" />
 
     </application>
 
