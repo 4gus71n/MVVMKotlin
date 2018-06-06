@@ -1,8 +1,13 @@
 package com.kimboo.mvvmkotlin.ui.edituserdetail
 
+import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.content.Context
+import android.databinding.BindingAdapter
 import android.databinding.ObservableField
+import android.support.design.widget.TextInputLayout
 import android.text.Editable
+import com.kimboo.mvvmkotlin.R
 import com.kimboo.mvvmkotlin.model.UserProfile
 import com.kimboo.mvvmkotlin.retrofit.repositories.RandomUserRepository
 import javax.inject.Inject
@@ -12,20 +17,22 @@ import javax.inject.Inject
  * Email: agustin.tomas.larghi@gmail.com
  */
 //If you need a context aware ViewModel you should use AndroidViewModel
-class EditUserDetailViewModel @Inject constructor (val randomUserRepository: RandomUserRepository): ViewModel() {
+class EditUserDetailViewModel @Inject constructor (val context: Context, val randomUserRepository: RandomUserRepository): ViewModel() {
 
     lateinit var user: UserProfile
 
     var title = ObservableField<String>()
-    var titleError = ObservableField<Boolean>()
+    var titleError = ObservableField<String>()
 
     var name = ObservableField<String>()
-    var nameError = ObservableField<Boolean>()
+    var nameError = ObservableField<String>()
 
     var lastname = ObservableField<String>()
-    var lastNameError = ObservableField<Boolean>()
+    var lastNameError = ObservableField<String>()
 
     var saveButtonEnabled = ObservableField<Boolean>()
+
+    var uiEvents = MutableLiveData<Int>()
 
     fun setUserProfile(profile: UserProfile) {
         user = profile
@@ -43,30 +50,60 @@ class EditUserDetailViewModel @Inject constructor (val randomUserRepository: Ran
         }
     }
 
+    companion object {
+        //region UI EVENTS constants declaration
+        const val PROFILE_UPDATED = 100
+        //endregion
+
+        //region DataBinding's Adapters declaration
+        @JvmStatic  @BindingAdapter(value = "app:errorMessage", requireAll = true)
+        fun setErrorMessage(textInputLayout: TextInputLayout, string: String?) {
+            if (!string.isNullOrBlank()) {
+                textInputLayout.isErrorEnabled = true
+                textInputLayout.error = string
+            } else {
+                textInputLayout.isErrorEnabled = false
+            }
+        }
+        //endregion
+    }
+
     fun onValidateTitle(editable: Editable) {
-        titleError.set(editable.isNullOrBlank())
+        if (editable.isNullOrBlank())  {
+            titleError.set(context.getString(R.string.edit_user_profile_title_error))
+        } else {
+            titleError.set("")
+        }
         title.set(editable.toString())
         onValidateSaveButton()
     }
 
+
     fun onValidateName(editable: Editable) {
-        nameError.set(editable.isNullOrBlank())
+        if (editable.isNullOrBlank()) {
+            nameError.set(context.getString(R.string.edit_user_profile_name_error))
+        } else {
+            nameError.set("")
+        }
         name.set(editable.toString())
         onValidateSaveButton()
     }
 
     fun onValidateLastname(editable: Editable) {
-        lastNameError.set(editable.isNullOrBlank())
+        if (editable.isNullOrBlank()) {
+            lastNameError.set(context.getString(R.string.edit_user_profile_last_name_error))
+        } else {
+            lastNameError.set("")
+        }
         lastname.set(editable.toString())
         onValidateSaveButton()
     }
     
     fun onValidateSaveButton() {
-        try {
-            saveButtonEnabled.set(titleError.get()!!.not().and(nameError.get()!!.not()).and(lastNameError.get()!!.not()))
-        } catch (e: Exception) {
-            saveButtonEnabled.set(false)
-        }
+        saveButtonEnabled.set(title.get().isNullOrBlank().not()
+                .and(name.get().isNullOrBlank().not())
+                .and(lastname.get().isNullOrBlank().not())
+        )
         saveButtonEnabled.notifyChange()
     }
 
@@ -77,6 +114,8 @@ class EditUserDetailViewModel @Inject constructor (val randomUserRepository: Ran
         //Note: Using INSERTS instead of UPDATES removes the record from the PagedLive that we are using
         //in the main screen.
         randomUserRepository.updateProfile(user)
+
+        uiEvents.value = PROFILE_UPDATED
     }
 
 }

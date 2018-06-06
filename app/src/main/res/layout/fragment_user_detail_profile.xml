@@ -69,54 +69,54 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:drawableTint="@color/colorAccent"
+                <com.kimboo.mvvmkotlin.ui.views.CompatTintTextView
+                    app:tintColor="@color/colorAccent"
                     tools:text="223 456 9304"
                     android:text="@{userDetailViewModel.userProfile.cell}"
                     android:drawableLeft="@drawable/ic_smartphone_white_24dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <TextView
+                <com.kimboo.mvvmkotlin.ui.views.CompatTintTextView
                     android:layout_marginTop="8dp"
                     tools:text="223 456 9304"
-                    android:drawableTint="@color/colorAccent"
+                    app:tintColor="@color/colorAccent"
                     android:drawableLeft="@drawable/ic_local_phone_white_24dp"
                     android:text="@{userDetailViewModel.userProfile.phone}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <TextView
+                <com.kimboo.mvvmkotlin.ui.views.CompatTintTextView
                     android:layout_marginTop="8dp"
                     tools:text="agustin.tomas.larghi@gmail.com"
-                    android:drawableTint="@color/colorAccent"
+                    app:tintColor="@color/colorAccent"
                     android:drawableLeft="@drawable/ic_email_white_24dp"
                     android:text="@{userDetailViewModel.userProfile.email}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <TextView
+                <com.kimboo.mvvmkotlin.ui.views.CompatTintTextView
                     android:layout_marginTop="8dp"
                     tools:text="25/01/1992"
-                    android:drawableTint="@color/colorAccent"
+                    app:tintColor="@color/colorAccent"
                     android:drawableLeft="@drawable/ic_date_range_white_24dp"
                     android:text="@{userDetailViewModel.userProfile.dob}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <TextView
+                <com.kimboo.mvvmkotlin.ui.views.CompatTintTextView
                     android:layout_marginTop="8dp"
                     tools:text="01/06/2018"
-                    android:drawableTint="@color/colorAccent"
+                    app:tintColor="@color/colorAccent"
                     android:drawableLeft="@drawable/ic_schedule_white_24dp"
                     android:text="@{userDetailViewModel.userProfile.registered}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <TextView
+                <com.kimboo.mvvmkotlin.ui.views.CompatTintTextView
                     android:layout_marginTop="8dp"
                     tools:text="Santa Fe 2570, Mar del Plata, Buenos Aires"
-                    android:drawableTint="@color/colorAccent"
+                    app:tintColor="@color/colorAccent"
                     android:drawableLeft="@drawable/ic_location_on_white_24dp"
                     android:text="@{userDetailViewModel.userProfile.getFormattedAddress()}"
                     android:layout_width="match_parent"

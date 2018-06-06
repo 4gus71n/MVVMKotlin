@@ -2,6 +2,7 @@ package com.kimboo.mvvmkotlin.ui.userdetail
 
 import android.arch.lifecycle.ViewModel
 import android.content.Context
+import android.content.Intent
 import android.databinding.ObservableField
 import com.kimboo.mvvmkotlin.model.UserProfile
 import com.kimboo.mvvmkotlin.retrofit.repositories.RandomUserRepository
@@ -32,7 +33,9 @@ class UserDetailViewModel @Inject constructor (val context: Context,
 
     fun onEditClicked() {
         var userProfile = userProfile.get()!!
-        context.startActivity(EditUserDetailActivity.getStartIntent(context, userProfile))
+        val startIntent = EditUserDetailActivity.getStartIntent(context, userProfile)
+        startIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK;
+        context.startActivity(startIntent)
     }
 
 

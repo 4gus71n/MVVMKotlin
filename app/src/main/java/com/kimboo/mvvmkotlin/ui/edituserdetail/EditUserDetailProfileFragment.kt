@@ -1,5 +1,6 @@
 package com.kimboo.mvvmkotlin.ui.edituserdetail
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -67,6 +68,16 @@ class EditUserDetailProfileFragment: Fragment() {
             userDetailViewModel.setUserProfile(userProfile);
         }
 
+        userDetailViewModel.uiEvents.observe(this, Observer {
+            when (it) {
+                EditUserDetailViewModel.PROFILE_UPDATED -> onProfileUpdatedSuccessfully()
+            }
+        })
+
+    }
+
+    private fun onProfileUpdatedSuccessfully() {
+        activity?.finish()
     }
     //endregion
 }

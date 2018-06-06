@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity(), MainActivityCallback {
             // If this view is present, then the
             // activity should be in two-pane mode.
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragmentMasterContainer, UserDetailProfileFragment.newInstance(userProfile), UserDetailProfileFragment.TAG)
+                    .replace(R.id.fragmentDetailContainer, UserDetailProfileFragment.newInstance(userProfile), UserDetailProfileFragment.TAG)
                     .commit()
         } else {
             startActivity(UserDetailActivity.getStartIntent(this, userProfile))
