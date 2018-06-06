@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="userProfileItemViewModel"
+            type="com.kimboo.mvvmkotlin.ui.userlist.adapter.UserProfileItemViewModel"/>
+    </data>
+
+    <FrameLayout
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.CardView
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:onClick="@{userProfileItemViewModel::onWholeLayoutClicked}"
+            android:layout_margin="4dp"
+            app:cardElevation="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/userProfileListImageView"
+                        android:transitionName="@{userProfileItemViewModel.userProfile.email}"
+                        app:imageUrl="@{userProfileItemViewModel.userProfile.getUserProfileThumbnailPic()}"
+                        android:scaleType="centerCrop"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp" />
+
+                    <TextView
+                        android:padding="8dp"
+                        style="@style/TextAppearance.AppCompat.Medium.Inverse"
+                        tools:text="Title"
+                        android:text='@{userProfileItemViewModel.userProfile.getFormattedName()}'
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <View
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:background="@color/colorWhite"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"/>
+
+                    <LinearLayout
+                        android:padding="8dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            tools:text="agustin.tomas.larghi@gmail.com"
+                            style="@style/TextAppearance.AppCompat.Small.Inverse"
+                            android:drawableLeft="@drawable/ic_email_white_24dp"
+                            android:drawablePadding="8dp"
+                            android:onClick="@{userProfileItemViewModel::onEmailClicked}"
+                            android:text="@{userProfileItemViewModel.userProfile.email}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            tools:text="223 456 9304"
+                            android:layout_marginTop="4dp"
+                            style="@style/TextAppearance.AppCompat.Small.Inverse"
+                            android:drawableLeft="@drawable/ic_local_phone_white_24dp"
+                            android:drawablePadding="8dp"
+                            android:onClick="@{userProfileItemViewModel::onPhoneClicked}"
+                            android:text="@{userProfileItemViewModel.userProfile.phone}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+    </FrameLayout>
+
+</layout>

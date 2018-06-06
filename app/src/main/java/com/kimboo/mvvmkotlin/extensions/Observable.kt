@@ -1,5 +1,7 @@
 package com.kimboo.mvvmkotlin.extensions
 
+import android.util.Log
+import com.kimboo.mvvmkotlin.MyApp
 import io.reactivex.Observable
 import io.reactivex.functions.Function
 import okhttp3.ResponseBody
@@ -41,6 +43,7 @@ open class DataSourceSubscriber<MODEL>: Subscriber<DataSource<MODEL>> {
     open fun onNotModifiedNext(model: MODEL) {}
 
     override fun onError(t: Throwable?) {
+        Log.d(MyApp.TAG, t?.localizedMessage)
     }
 
     override fun onSubscribe(s: Subscription?) {}

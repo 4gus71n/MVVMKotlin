@@ -1,11 +1,11 @@
 package com.kimboo.mvvmkotlin
 
 import android.app.Application
+import com.facebook.stetho.Stetho
 import com.kimboo.androidjobsnewsletter.di.module.AppModule
-import com.kimboo.mvvmkotlin.di.components.AppComponent
-import com.kimboo.mvvmkotlin.di.components.DaggerAppComponent
-import com.kimboo.mvvmkotlin.di.components.DaggerViewInjectorComponent
-import com.kimboo.mvvmkotlin.di.components.ViewInjectorComponent
+import com.kimboo.mvvmkotlin.db.AppDb
+import com.kimboo.mvvmkotlin.di.components.DaggerInjector
+import com.kimboo.mvvmkotlin.di.components.Injector
 
 /**
  * Created by Agustin Tomas Larghi on 5/3/2018.
@@ -15,19 +15,26 @@ class MyApp: Application() {
 
     override fun onCreate() {
         super.onCreate()
+        Stetho.initializeWithDefaults(this);
         instance = this
-        appComponent = DaggerAppComponent.builder().appModule(AppModule(this)).build()
-        viewInjector = DaggerViewInjectorComponent.builder().appComponent(appComponent).build();
+
+        AppDb.create(this, false)
+
+        viewInjector = DaggerInjector
+                .builder()
+                .appModule(AppModule(this))
+                .build()
     }
 
 
 
     companion object {
-        @JvmStatic lateinit var appComponent: AppComponent
-        @JvmStatic lateinit var viewInjector: ViewInjectorComponent
+        @JvmStatic lateinit var viewInjector: Injector
 
         lateinit var instance: MyApp
             private set
+
+        const val TAG = "MVVMExample"
     }
 
 }

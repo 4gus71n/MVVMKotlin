@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="userProfileListViewModel"
+            type="com.kimboo.mvvmkotlin.ui.userlist.UserProfileListViewModel"/>
+    </data>
+
+    <LinearLayout
+        app:showSnackbar="@{userProfileListViewModel.snackBarMessage}"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/userProfileListToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark"
+            android:background="?attr/colorPrimary" />
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/fragmentMainSwipeRefreshLayout"
+            app:refreshing="@{userProfileListViewModel.isLoading}"
+            app:onRefreshListener="@{() -> userProfileListViewModel.fetchUserProfiles()}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:padding="4dp"
+                android:id="@+id/fragmentMainRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </LinearLayout>
+</layout>
