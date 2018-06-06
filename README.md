@@ -1,6 +1,20 @@
 # MVVMKotlin (WIP)
 A boilerplate-less Kotlin MVVM
 
+![Alt Text](https://github.com/4gus71n/MVVMKotlin/blob/master/device-2018-06-06-152452.gif)
+
+Basically, this is just a demo App to test a couple of the new Android Jetpack tools. The new MVVM has been changing a lot since the early alphas of DataBinding, initially this project was made with those technologies, I took the chance to update everything related to MVVM.
+
+# Techs involved
+
+- I'm using the Android's Jetpack PagingLibrary to fetch the UserProfiles from the DB, there's a BoundaryCallback that gets triggered if there's no data in the DB or if we reached the end of the list, when that happens, the Retrofit service does a query to the server-side to get more info.
+
+- I'm using LiveData to communicate the ViewModel layer back to the UI. I really don't like having to use LiveData, just because LiveData is a lot like rx.Observables but is aware of the LifecycleOwners, I don't really like have to mix those two technologies in the same project, is like having Glide and Picasso in the same App just for the sake of having them. 
+
+- I'm trying to use the latest and fanciest UI features, CoordinatorLayout in the UserDetailFragment to have that Parallax effect. Shared transitions to move the image thumbnail from the list to the detail. This are not really new things, but in this project I started pointing the sdk to Lolipop and above, that removes a lot of compat-related boilerplate code and makes things easier.
+
+- Instead of having Interactors/UseCasas (like in the usual MVP architecture) I'm using the SSOT pattern in Repositories to handle the data.
+
 # New approach
 
 With the new Android's Jetpack tools I decided to take a new approach for the MVVM architecture. We still have lots of different MVVM architectures out there and It's hard to decide which one is the best. I like the approach of the SSOT (Single Source Of Truth) pattern. Basically this pattern says that instead of having network repositories and DB repositories as we usually have in the MVP architecture, we should have one single repository that contains a DAO instance and a Retrofit instance, whenever we want to query the server-side to get a list of something or to post new content, we should perform the API call and then update the DB, the DB triggers Room's Flowables and then the UI gets updated with that. This new approach really caught my attention since that doing this we are removing a LOT of boilerplate code. If we have the UI watching the DB Flowables through the ViewModel we don't have the need to keep track of the data using EventBus to broadcast the changes (for example if we update data in one screen and then we need to reflect those changes in the screens in the backstack) we don't need to hook from the onSaveInstanceState()/onViewStateRestored() methods to save the UI state in a Bundle. I see a lot of pros with this approach with really none cons.
