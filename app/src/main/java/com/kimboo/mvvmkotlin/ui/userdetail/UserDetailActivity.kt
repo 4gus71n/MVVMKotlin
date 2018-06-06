@@ -27,6 +27,7 @@ class UserDetailActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportPostponeEnterTransition()
         setContentView(R.layout.activity_no_toolbar)
 
         if (savedInstanceState == null) {
@@ -40,6 +41,20 @@ class UserDetailActivity: AppCompatActivity() {
             }
 
         }
+    }
+
+    override fun onNavigateUp(): Boolean {
+        supportFinishAfterTransition()
+        return super.onNavigateUp()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        supportFinishAfterTransition()
+        return super.onSupportNavigateUp()
+    }
+
+    override fun onBackPressed() {
+        supportFinishAfterTransition()
     }
 
 }

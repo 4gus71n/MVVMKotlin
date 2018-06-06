@@ -4,7 +4,9 @@ import android.arch.paging.PagedListAdapter
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import com.kimboo.mvvmkotlin.R
 import com.kimboo.mvvmkotlin.databinding.ViewItemUserProfileBinding
 import com.kimboo.mvvmkotlin.model.UserProfile
 
@@ -56,15 +58,15 @@ class UsersAdapter(var callback: UsersAdapter.Callback): PagedListAdapter<UserPr
      * To communicate back to the Fragment/Activity
      */
     interface Callback {
-        fun onWholeLayoutClicked(userProfile: UserProfile);
+        fun onWholeLayoutClicked(view: View?, userProfile: UserProfile);
         fun onPhoneClicked(userProfile: UserProfile)
         fun onEmailClicked(userProfile: UserProfile)
     }
     //endregion
 
     //region UserProfileItemViewModel.Callback implementation
-    override fun onWholeLayoutClicked(userProfile: UserProfile) {
-        callback.onWholeLayoutClicked(userProfile)
+    override fun onWholeLayoutClicked(view: View?, userProfile: UserProfile) {
+        callback.onWholeLayoutClicked(view?.findViewById(R.id.userProfileListImageView), userProfile)
     }
 
     override fun onPhoneClicked(userProfile: UserProfile) {

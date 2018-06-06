@@ -85,10 +85,10 @@ class UserProfileListFragment: Fragment(), UsersAdapter.Callback {
     //endregion
 
     //region UsersAdapter.Callback implementation
-    override fun onWholeLayoutClicked(userProfile: UserProfile) {
+    override fun onWholeLayoutClicked(view: View?, userProfile: UserProfile) {
         if (activity is MainActivityCallback) {
             with (activity as MainActivityCallback) {
-                onUserProfileClicked(userProfile)
+                onUserProfileClicked(view, userProfile)
             }
         }
     }

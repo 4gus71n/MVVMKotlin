@@ -1,7 +1,10 @@
 package com.kimboo.mvvmkotlin.ui.userlist
 
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.util.Pair
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import com.kimboo.mvvmkotlin.R
 import com.kimboo.mvvmkotlin.model.UserProfile
 import com.kimboo.mvvmkotlin.ui.userdetail.UserDetailActivity
@@ -18,24 +21,28 @@ class MainActivity : AppCompatActivity(), MainActivityCallback {
         setContentView(R.layout.activity_master_detail)
 
         if (savedInstanceState == null) {
-            //TODO Replace with Android KTX https://developer.android.com/kotlin/ktx#ktx
             supportFragmentManager.beginTransaction()
                     .replace(R.id.fragmentMasterContainer, UserProfileListFragment.newInstance(), UserProfileListFragment.TAG)
                     .commit()
         }
     }
 
-    override fun onUserProfileClicked(userProfile: UserProfile) {
+    override fun onUserProfileClicked(view: View?, userProfile: UserProfile) {
         if (fragmentDetailContainer != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-w900dp).
             // If this view is present, then the
             // activity should be in two-pane mode.
             supportFragmentManager.beginTransaction()
+                    .addSharedElement(view, userProfile.email)
                     .replace(R.id.fragmentDetailContainer, UserDetailProfileFragment.newInstance(userProfile), UserDetailProfileFragment.TAG)
                     .commit()
         } else {
-            startActivity(UserDetailActivity.getStartIntent(this, userProfile))
+            // Animate transition
+            val activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
+                    Pair(view, userProfile.email))
+            startActivity(UserDetailActivity.getStartIntent(this, userProfile),
+                    activityOptions.toBundle())
         }
     }
 }

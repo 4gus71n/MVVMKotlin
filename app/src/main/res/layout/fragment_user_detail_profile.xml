@@ -36,7 +36,8 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <ImageView
-                    app:imageUrl="@{userDetailViewModel.userProfile.getUserProfileThumbnailPic()}"
+                    android:id="@+id/userDetailImageView"
+                    android:transitionName="@{userDetailViewModel.userProfile.email}"
                     app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
