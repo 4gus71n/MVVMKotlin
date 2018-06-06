@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MVVMKotlin</string>
+    <string name="app_description">This App demonstrates how we can communicate the different layers of an MVVM architecture through Room/Flowables. Notice that the main list is working with the Android Jetpack\'s Pagination library fetching the data from the DB. If we edit any field of the records, that information is gonna be automatically broadcasted back to the UI through Room, hence no need of EventBus or hooking from the onSaveInstanceState() methods or anything like that.</string>
+    <string name="edit_user_profile_title_error">Title cannot be empty nor blank</string>
+    <string name="edit_user_profile_name_error">Name cannot be empty nor blank</string>
+    <string name="edit_user_profile_last_name_error">Lastname cannot be empty nor blank</string>
 </resources>

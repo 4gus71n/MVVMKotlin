@@ -1,20 +1,21 @@
 package com.kimboo.androidjobsnewsletter.di.module
 
 import android.content.Context
-import com.kimboo.mvvmkotlin.MyApp
+import com.kimboo.mvvmkotlin.db.AppDb
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
+
 @Module
-class AppModule(private val mApplication: MyApp) {
+class RoomModule() {
 
-    @Provides
     @Singleton
-    fun providesApp(): MyApp = mApplication
+    @Provides
+    fun providesAppDb(context: Context) = AppDb.create(context, false)
 
-    @Provides
     @Singleton
-    fun providesContext(): Context = mApplication
+    @Provides
+    fun providesUserDao(appDb: AppDb) = appDb.users()
 
 }
