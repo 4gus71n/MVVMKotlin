@@ -7,9 +7,16 @@ With the new Android's Jetpack tools I decided to take a new approach for the MV
 
 Altough there's a couple of things that I don't like from this approach, It's not specifically about the MVVM/SSOT architecture, but about the technologies. If we want to communicate changes from the ViewModel back to the UI we need to use LiveData to broadcast the events from the ViewModel, listen for those events from the UI and then do whatever we want. For example, if we want to trigger a new Activity we should use the current Activity's context, if we use the Application's context we need to set some nasty flags. The thing that I don't like about all this is not the fact that we need to broadcast the events back to the UI, but the fact that we need to use LiveData. I've been trying to use rx.Observables to do it, but since the rx.Observables are not aware of the UI lifecycle as the LiveData classes do, you must use LiveData. LiveData is basically a short version of rx.Observable, and I don't like the idea of mixing those two. I'd like to use all LiveData or all rx.Observables in my project. That's something that's still green. There's a Retrofit adapter for LiveData available so maybe in the future we are going to stop using rx.Observables, but at this point in the Android development community the RxJava technology is being used a lot, I don't think that we are going to switch to one or another any time soon. I guess that the best option is using both for now.
 
+Couple of things that I think are worth pointing out:
+
+- The Repository methods should only return rx.Observables, since this component only communicates with the ViewModel, and the ViewModel (both ViewModel and AndroidViewModel) are not LifecycleOwner classes, it makes sense that the methods return rx.Observables, since LiveData objects need from a LifecycleOwner object to work with.
+
+- The ViewModel should expose only LiveData objects to communicate back to the UI
+
 More info:
 
 SSOT -> https://medium.com/@iammert/offline-app-with-rxjava-2-and-room-ccd0b5c18101
+DOES AND DONTS -> https://medium.com/google-developers/viewmodels-and-livedata-patterns-antipatterns-21efaef74a54
 
 # Legacy documentation!
 
